@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MARVL at Maritime RobotX 2026</title>
+<meta name="description" content="MARVL, the robotics lab at the Singapore University of Technology and Design, is taking a surface vessel, an underwater vehicle and a quadrotor to the 2026 Maritime RobotX Challenge at Marina Bay." />
+<meta property="og:title" content="MARVL at Maritime RobotX 2026" />
+<meta property="og:description" content="MARVL, the robotics lab at the Singapore University of Technology and Design, is taking a surface vessel, an underwater vehicle and a quadrotor to the 2026 Maritime RobotX Challenge at Marina Bay." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<section class="hero">
+  <div class="hero-media">
+    <video autoplay muted loop playsinline poster="assets/img/sim-course-poster.jpg" aria-hidden="true" tabindex="-1">
+      <source src="assets/video/hero-loop.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="wrap hero-in">
+    <h1>A boat, a submersible and a quadrotor, run from one console.</h1>
+    <p class="lede">MARVL is the robotics lab at the Singapore University of Technology
+    and Design. In November we take three uncrewed vehicles to Marina Bay and fly the
+    RobotX Storm Response mission as a single system.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="sim/">Open the course simulator</a>
+      <a class="btn btn-ghost" href="autonomy.html">How the system works</a>
+    </div>
+  </div>
+  <div class="strip">
+    <div class="wrap">
+      <ul>
+        <li><b>3</b><span>vehicles, one in each domain</span></li>
+        <li><b>4</b><span>mission tasks, Advanced tier target</span></li>
+        <li><b>63</b><span>readiness requirements tracked</span></li>
+        <li><b>154</b><span>automated tests on the ground station</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="mission">
+  <div class="wrap">
+    <header>
+      <h2>The mission</h2>
+      <p>A storm has hit a coastal port. The four RobotX tasks are one continuous
+      recovery operation, and every one of them needs more than a single vehicle.</p>
+    </header>
+    <div class="cols">
+      <div>
+        <h3>1. Safe passage</h3>
+        <p>Ten buoys carry light beacons. At Advanced the route is only visible from
+        above, so the quadrotor reads the field, reports it to RoboCommand and relays
+        the entry, exit and marker positions to the boat before it transits.</p>
+      </div>
+      <div>
+        <h3>2. Infrastructure survey and repair</h3>
+        <p>The ROV homes on the active pinger, follows the pipeline, calls each
+        segment intact or damaged, and holds its magnetic probe on the damaged node.
+        The repaired node then names the resource it needs, and the quadrotor flies it in.</p>
+      </div>
+      <div>
+        <h3>3. Coordinated logistics</h3>
+        <p>The boat finds the green docking bay, docks, sprays the lit window until it
+        turns green, then passes the delivery colour to the quadrotor.</p>
+      </div>
+      <div>
+        <h3>4. Dynamic incident response</h3>
+        <p>RoboCommand interrupts the run with an assistance request, a keep-out zone
+        or a moving vessel. The affected vehicle acknowledges on the wire, responds,
+        then picks up the task it left at the step where it stopped.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-deep" id="fleet">
+  <div class="wrap">
+    <header>
+      <h2>The system of systems</h2>
+      <p>Three vehicles, three autopilots, one MAVLink interface behind them so the
+      ground station treats a simulator, a firmware build and a real hull the same way.</p>
+    </header>
+
+    <div class="vehicle">
+      <div>
+        <p class="tagline">Surface</p>
+        <h3>BlueBoat</h3>
+        <p>A 1.2 m catamaran on ArduRover, with shrouded thrusters, a wireless kill
+        switch and a 360 degree status light. It transits the safe passage, docks and
+        fights the window fire, and carries the ROV's surface link.</p>
+        <ul class="readout">
+          <li><span>Autopilot</span><b>ArduRover on Pixhawk</b></li>
+          <li><span>Link to shore</span><b>WiFi HaLow, MAVLink</b></li>
+          <li><span>Tasks</span><b>1, 3, 4</b></li>
+        </ul>
+        <p><a href="usv.html">BlueBoat in detail</a></p>
+      </div>
+      <div class="shot"><img src="assets/img/usv-propeller-shrouds.jpg" alt="Two shrouded thrusters under the red hulls of the BlueBoat, each with a printed guard and a caution label." loading="lazy" width="1280" height="720" /></div>
+    </div>
+
+    <div class="vehicle">
+      <div>
+        <p class="tagline">Subsurface</p>
+        <h3>BlueROV2</h3>
+        <p>A six thruster ROV on ArduSub. Without a DVL it has no absolute position
+        underwater, so it works in depth hold rather than guided mode, which is the
+        single design decision that shaped the whole underwater stack.</p>
+        <ul class="readout">
+          <li><span>Autopilot</span><b>ArduSub, BlueOS companion</b></li>
+          <li><span>Camera</span><b>RTSP, 1280x720 at 15 fps</b></li>
+          <li><span>Tasks</span><b>2, 4</b></li>
+        </ul>
+        <p><a href="uuv.html">BlueROV2 in detail</a></p>
+      </div>
+      <div class="shot"><img src="assets/img/sim-chase-uuv.jpg" alt="The BlueROV2 seen from behind in the simulator, lamps lighting the seabed, tether running up to the boat." loading="lazy" width="1280" height="650" /></div>
+    </div>
+
+    <div class="vehicle">
+      <div>
+        <p class="tagline">Air</p>
+        <h3>22 inch quadrotor</h3>
+        <p>Built in the lab on a Pixhawk 6C mini, 6.8 kg in its delivery configuration,
+        floating on foam so a ditching is recoverable. It reads the buoy field from
+        above, relays the route, and carries resource tins to the platforms.</p>
+        <ul class="readout">
+          <li><span>Autopilot</span><b>ArduPilot Copter</b></li>
+          <li><span>Endurance</span><b>18 min, land by 15</b></li>
+          <li><span>Tasks</span><b>1, 2, 3, 4</b></li>
+        </ul>
+        <p><a href="uav.html">Quadrotor in detail</a></p>
+      </div>
+      <div class="shot"><img src="assets/img/uav-side.jpg" alt="The quadrotor on a workshop floor, carbon arms with blue foam flotation strapped along them." loading="lazy" width="1280" height="960" /></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="console">
+  <div class="wrap">
+    <header>
+      <h2>One console, three vehicles</h2>
+      <p>The ground station holds the mission. It drives the vehicles over MAVLink,
+      speaks the RoboCommand protocol to the judges, and keeps a checkpoint of every
+      task so an interruption costs a few seconds rather than the run.</p>
+    </header>
+    <figure>
+      <img src="assets/img/sim-task4.jpg" alt="The simulator showing a keep-out zone drawn on the water with the boat routing around it." loading="lazy" width="1600" height="813" />
+      <figcaption><b>Task 4, Advanced.</b> RoboCommand issues a keep-out zone mid-run.
+      The operator console acknowledges it on the wire, the boat routes around the area,
+      and the suspended task resumes at the step it stopped on.</figcaption>
+    </figure>
+    <div class="cols">
+      <div>
+        <h3>Mission state, not scripts</h3>
+        <p>Three state machines run in parallel: one per vehicle, one per task, one for
+        the mission. Suspend and resume is a property of the task machine, so Task 4 is
+        an interruption rather than a special case.</p>
+      </div>
+      <div>
+        <h3>The protocol is tested, not assumed</h3>
+        <p>Our operator console ran the handbook's run start sequence against
+        RoboNation's own rc-test server. Their decoder wrote the log we submitted.</p>
+      </div>
+      <div>
+        <h3>A digital twin of the course</h3>
+        <p>Marina Bay, the buoy field, the pipeline and the docking bays are modelled to
+        the handbook's build specifications, which is how we rehearse a run before the
+        hardware is on the water.</p>
+      </div>
+    </div>
+    <p><a class="btn btn-ghost" href="autonomy.html">Read how the ground station is built</a></p>
+  </div>
+</section>
+
+<section class="band band-deep" id="evidence">
+  <div class="wrap">
+    <header>
+      <h2>What we have shown so far</h2>
+    </header>
+    <div class="cols">
+      <div>
+        <h3>Proof of readiness</h3>
+        <p>Packages for the boat, the ROV, the aircraft and communications went in for
+        the handbook 3.1 window: autonomous runs, kill switch drawings, failsafe
+        documentation and a run start log from RoboNation's test server.</p>
+        <p><a href="readiness.html">See the submissions and the evidence</a></p>
+      </div>
+      <div>
+        <h3>Flight and water testing</h3>
+        <p>Manual and autonomous flights, geofence and ceiling holds, a link loss
+        failsafe, a buoyancy ditching in the pool, and autonomous operations on the boat.</p>
+        <p><a href="testing.html">See the test record</a></p>
+      </div>
+      <div>
+        <h3>Simulation</h3>
+        <p>The real firmware runs software in the loop behind an emulated HaLow radio,
+        and a scripted mission validates 25 stages end to end before anything gets wet.</p>
+        <p><a href="simulation.html">See how we simulate</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="sponsors">
+  <div class="wrap">
+    <header>
+      <h2>Support</h2>
+      <p>The team is hosted by the MARVL lab at SUTD and competes with platforms from
+      the RoboNation and Blue Robotics granted platform programme.</p>
+    </header>
+    <div class="sponsors">
+      <div class="sponsor">
+        <div class="mark"><img src="assets/img/logo-sutd.svg" alt="Singapore University of Technology and Design" /></div>
+        <h3>Singapore University of Technology and Design</h3>
+        <p>Host university. Workshop, pool and field access, and the staff time behind
+        the airworthiness and safety paperwork.</p>
+      </div>
+      <div class="sponsor">
+        <div class="mark"><img src="assets/img/logo-marvl.svg" alt="MARVL, Multi-Agent Robotics Vision and Learning Lab" /></div>
+        <h3>MARVL Lab</h3>
+        <p>Multi-Agent Robotics Vision and Learning Lab. The vehicles, the test fleet and
+        the marine robotics experience the team builds on.</p>
+      </div>
+      <div class="sponsor">
+        <div class="mark"><img src="assets/img/logo-blue-robotics.svg" alt="Blue Robotics" /></div>
+        <h3>Blue Robotics</h3>
+        <p>BlueBoat and BlueROV2 platforms through the RobotX granted platform
+        programme, and the parts that keep both of them running.</p>
+      </div>
+    </div>
+    <p style="margin-top:2rem"><a href="team.html#sponsors">Sponsorship and how to reach us</a></p>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

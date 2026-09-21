@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Build log | MARVL RobotX 2026</title>
+<meta name="description" content="What changed, when and why, from the first mission logic to the readiness submissions." />
+<meta property="og:title" content="Build log | MARVL RobotX 2026" />
+<meta property="og:description" content="What changed, when and why, from the first mission logic to the readiness submissions." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html" aria-current="page">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>Build log</h1>
+      <p class="lede">What changed, when, and why. Entries are written
+against the repository history, so the dates are the dates the work landed.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="narrow">
+    <article class="log-entry">
+      <time datetime="2026-09-18">18 September 2026</time>
+      <div>
+        <h2>RoboCommand support and readiness evidence</h2>
+        <p>The operator console now speaks the full RoboCommand protocol, and the readiness
+    rehearsal reads the submission directory directly, so the run start drawn on screen
+    uses the team id, course, tiers and sequence numbers from the log that was actually
+    sent. Scripts were added to regenerate both the log and the screencast against a
+    local copy of RoboNation's test server.</p>
+      </div>
+    </article>
+    <article class="log-entry">
+      <time datetime="2026-08-31">31 August 2026</time>
+      <div>
+        <h2>Readiness packages go in</h2>
+        <p>The mandatory window closed. Packages for the boat, the ROV, the aircraft and
+    communications were submitted, with the communications evidence produced the same day:
+    a run start sequence against RoboNation's test server, our console on one side and
+    their decoder on the other.</p>
+      </div>
+    </article>
+    <article class="log-entry">
+      <time datetime="2026-08-21">21 August 2026</time>
+      <div>
+        <h2>The course, in three dimensions</h2>
+        <p>The Marina Bay course went into the browser: every task element from the build
+    specifications at true scale, five camera modes, and a visual settings panel because
+    the low sun over the bay washes out exactly the part of the water the buoys are in.
+    The readiness rehearsal followed, with the four handbook courses and the 63 item
+    checklist.</p>
+      </div>
+    </article>
+    <article class="log-entry">
+      <time datetime="2026-07-13">13 July 2026</time>
+      <div>
+        <h2>A protocol client and a shore server to test it against</h2>
+        <p>The RoboCommand client and a mock shore server landed together, so the run start
+    handshake could be exercised offline. Telemetry streams were trimmed to the messages
+    the ground station actually consumes, which took the radio load down to a few packets
+    per second per vehicle.</p>
+      </div>
+    </article>
+    <article class="log-entry">
+      <time datetime="2026-07-12">12 July 2026</time>
+      <div>
+        <h2>Real firmware, emulated radio</h2>
+        <p>Software in the loop arrived: ArduRover, ArduSub and Copter running the firmware the
+    vehicles run, behind an emulator for the WiFi HaLow link with latency, jitter, loss,
+    a bandwidth cap and periodic outages. The fringe profile immediately found the
+    telemetry problem above.</p>
+      </div>
+    </article>
+    <article class="log-entry">
+      <time datetime="2026-05-18">18 May 2026</time>
+      <div>
+        <h2>First mission logic</h2>
+        <p>The three state machines, the orchestrator, the health monitor and the terminal
+    console, with simulated vehicles behind them. Enough to fly a mission end to end on a
+    laptop while the hardware was still being specified.</p>
+      </div>
+    </article>
+    <div class="note" style="margin-top:2.5rem">
+      <h2>Between now and November</h2>
+      <p>Water time for the pipeline survey, the docking approach and the delivery
+      mechanism, then one session with all three vehicles autonomous at once. The
+      <a href="testing.html#planned">test record</a> lists what is booked.</p>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

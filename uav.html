@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The quadrotor | MARVL RobotX 2026</title>
+<meta name="description" content="A lab-built 22 inch quadrotor: airframe, power, failsafes, delivery payload and flight evidence." />
+<meta property="og:title" content="The quadrotor | MARVL RobotX 2026" />
+<meta property="og:description" content="A lab-built 22 inch quadrotor: airframe, power, failsafes, delivery payload and flight evidence." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html" aria-current="page">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <p class="crumb"><a href="vehicles.html">Vehicles</a> / Quadrotor</p>
+      <h1>22 inch quadrotor</h1>
+      <p class="lede">Built in the lab around a Pixhawk 6C mini. It reads the buoy field from above, relays
+the route to the boat, and carries resource tins to the delivery platforms. It also has
+to float, because part of the course is water.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#airframe">Airframe</a></li>
+      <li><a href="#power">Power and endurance</a></li>
+      <li><a href="#control-uav">Control and telemetry</a></li>
+      <li><a href="#failsafe">Failsafe behaviour</a></li>
+      <li><a href="#payload">Delivery payload</a></li>
+      <li><a href="#flight">Flight evidence</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="airframe">
+      <h2>Airframe</h2>
+      <p>A custom 22 inch quadrotor. Carbon arms and plate, 22.4 by 8 inch two blade
+      propellers, and foam flotation strapped along the arms and the body so the aircraft
+      stays upright and recoverable after a ditching. Two configurations are declared:
+      the base aircraft, and the base aircraft with the tin grabbing assembly fitted.</p>
+      <ul class="readout">
+        <li><span>Type</span><b>Custom quadrotor, multirotor</b></li>
+        <li><span>Dimensions</span><b>98 x 89 x 29 cm, 129 cm diagonal</b></li>
+        <li><span>Empty mass</span><b>6.6 kg</b></li>
+        <li><span>Operating mass</span><b>6.8 kg with the delivery assembly</b></li>
+        <li><span>Propellers</span><b>22.4 x 8 in, two blade, polymer and carbon</b></li>
+        <li><span>Flight controller</span><b>Pixhawk 6C mini, ArduPilot</b></li>
+        <li><span>Launch and recovery</span><b>Vertical from the pontoon, water ditching if needed</b></li>
+      </ul>
+      <div class="media-grid">
+        <figure><img src="assets/img/uav-front.jpg" alt="The quadrotor from the front, propellers level, flotation foam under the arms." loading="lazy" width="1280" height="960" /><figcaption>Front view, delivery configuration.</figcaption></figure>
+        <figure><img src="assets/img/uav-top.jpg" alt="The quadrotor from above showing the four arms, batteries and the centre plate." loading="lazy" width="1280" height="960" /><figcaption>Top view. Four battery packs sit inboard on the centre plate.</figcaption></figure>
+        <figure><img src="assets/img/uav-payload-mount.jpg" alt="Close up of the underside of the aircraft where the delivery assembly mounts." loading="lazy" width="1280" height="960" /><figcaption>Underside mount for the tin grabbing assembly.</figcaption></figure>
+        <figure><img src="assets/img/uav-flotation-detail.jpg" alt="Foam flotation strapped along a carbon arm of the aircraft." loading="lazy" width="1280" height="960" /><figcaption>Flotation on the arms and body, sized to keep the aircraft upright in the water.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section" id="power">
+      <h2>Power and endurance</h2>
+      <p>Four 6S1P lithium ion packs in parallel, 4,500 mAh each, 18,000 mAh at 22.2 V in
+      total. Flight testing at the delivery configuration mass gives about 18 minutes, so
+      missions are planned to land by 15 with roughly three minutes in reserve.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Battery gates, from the safety behaviour documentation.</caption>
+          <thead><tr><th scope="col">Stage</th><th scope="col">Threshold</th><th scope="col">Behaviour</th></tr></thead>
+          <tbody>
+            <tr><td>Take-off gate</td><td class="num">90%</td><td>Team procedure: no launch below this state of charge</td></tr>
+            <tr><td>Low battery</td><td class="num">30%</td><td>Warning and a return to launch prompt to the pilot</td></tr>
+            <tr><td>Critical battery</td><td class="num">20%</td><td>Automatic land, controlled descent at the current position</td></tr>
+            <tr><td>Planned landing</td><td class="num">30%</td><td>Missions are planned to land with at least this reserve</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="control-uav">
+      <h2>Control and telemetry</h2>
+      <p>The manual link is a RadioMaster transmitter with a built in ExpressLRS module,
+      paired to a receiver on the aircraft. It is independent of the ground station: the
+      pilot can take off, fly and land with the laptop switched off. The ground station
+      runs Mission Planner for monitoring, mission upload and autonomous mission
+      management, and the operator console reports the aircraft to RoboCommand at 2 Hz
+      along with the other two vehicles.</p>
+      <ul class="readout">
+        <li><span>Manual link</span><b>ExpressLRS 2.4 GHz, frequency hopping</b></li>
+        <li><span>Transmit power</span><b>50 mW setting, about 0.08 W EIRP</b></li>
+        <li><span>Telemetry</span><b>2.4 GHz to Mission Planner</b></li>
+        <li><span>Flight modes</span><b>Stabilise, AltHold, Loiter, Auto, Land, RTL</b></li>
+        <li><span>Declared ceiling</span><b>50 m above mean sea level</b></li>
+        <li><span>Geofence</span><b>Polygon with a 4 m internal buffer</b></li>
+      </ul>
+      <p>Aircraft telemetry is also relayed for Singapore's network remote identification
+      requirements, so the heartbeat has to carry a complete field set every time. That is
+      one of the reasons the RoboCommand client fills flight phase, altitude and heading
+      on every report rather than only when they change.</p>
+      <figure>
+        <img src="assets/img/uav-controller.jpg" alt="The dedicated RadioMaster transmitter used for the aircraft." loading="lazy" width="1280" height="960" />
+        <figcaption>The dedicated transmitter, assigned to this aircraft and the nominated pilot.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="failsafe">
+      <h2>Failsafe behaviour</h2>
+      <div class="table-scroll">
+        <table>
+          <caption>What the aircraft does without being asked.</caption>
+          <thead><tr><th scope="col">Trigger</th><th scope="col">Detection</th><th scope="col">Response</th></tr></thead>
+          <tbody>
+            <tr><td>Manual link loss</td><td class="num">5 s without valid input</td><td>Land: controlled descent at the current position, disarm on touchdown</td></tr>
+            <tr><td>Telemetry loss</td><td class="num">5 s without a heartbeat</td><td>Land, with the pilot keeping manual control throughout</td></tr>
+            <tr><td>Navigation loss</td><td class="num">5 s without position</td><td>Land</td></tr>
+            <tr><td>Geofence reached</td><td>Polygon fence with a 4 m buffer</td><td>Brake and hold at the boundary, in manual and in autonomous flight</td></tr>
+            <tr><td>Ceiling reached</td><td>Fence altitude limit</td><td>Hold at the declared ceiling even when commanded above it</td></tr>
+            <tr><td>Mission abort</td><td>Ground station command or the pilot's mode switch</td><td>Loiter or return to launch. A scored attempt does not resume after a manual takeover</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The emergency stop on the transmitter cuts the motors immediately and works on
+      the ground and in the air. Used in flight it produces an uncontrolled descent, so it
+      is reserved for the case where continued flight is the greater hazard.</p>
+      <figure>
+        <img src="assets/img/uav-safe-handling.jpg" alt="Photograph of the aircraft with the safe handling areas marked." loading="lazy" width="1280" height="960" />
+        <figcaption>Marked handling areas, so the aircraft is only ever picked up where it is safe to.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="payload">
+      <h2>Delivery payload</h2>
+      <p>Tasks 2 and 3 both end with a tin on a coloured circle. The delivery assembly is
+      a removable tin grabbing mechanism of about 0.20 kg on an underside mount, powered
+      from the main battery. The mount is drilled and the aircraft flies with it fitted;
+      the grabber itself is the part still being finished.</p>
+      <p>The delivery tins are aluminium cans of 40 to 50 g coated in red, green or blue.
+      The platforms are 2 m squares with 60 to 70 cm circles in the handbook's specified
+      colours, which is what the simulator draws and what the perception work targets.</p>
+    </section>
+
+    <section class="section" id="flight">
+      <h2>Flight evidence</h2>
+      <p>These are the flights submitted for the aerial proof of readiness. Each one runs
+      start to finish with no cuts, which is what section 3.1.1 asks for.</p>
+
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/uav-autonomous-flight-poster.jpg">
+          <source src="assets/video/uav-autonomous-flight.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/uav-autonomous-flight.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Autonomous mission</span><span>1 min 25 s</span><span>Handbook 3.1.4</span></p>
+        <p>Takeoff, the published pattern and landing, flown in Auto with the mode shown
+        on the ground station.</p>
+      </div>
+
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/uav-manual-flight-poster.jpg">
+          <source src="assets/video/uav-manual-flight.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/uav-manual-flight.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Manual mission</span><span>2 min 15 s</span><span>Handbook 3.1.4</span></p>
+        <p>The same pattern flown by the pilot, with takeoff above 3 m and a landing back
+        on the pad.</p>
+      </div>
+
+      <div class="media-grid">
+        <div class="video-block">
+          <video controls preload="none" poster="assets/img/uav-geofence-poster.jpg">
+            <source src="assets/video/uav-geofence.mp4" type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+          <p class="video-meta"><span>Geofence hold</span><span>36 s</span></p>
+          <p>Commanded past the boundary, the aircraft brakes and holds at the fence.</p>
+        </div>
+        <div class="video-block">
+          <video controls preload="none" poster="assets/img/uav-link-loss-poster.jpg">
+            <source src="assets/video/uav-link-loss.mp4" type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+          <p class="video-meta"><span>Link loss</span><span>42 s</span></p>
+          <p>The transmitter is switched off in flight. Five seconds later the aircraft
+          lands itself.</p>
+        </div>
+        <div class="video-block">
+          <video controls preload="none" poster="assets/img/uav-buoyancy-poster.jpg">
+            <source src="assets/video/uav-buoyancy.mp4" type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+          <p class="video-meta"><span>Positive buoyancy</span><span>7 s</span></p>
+          <p>In the pool, floating upright on its foam.</p>
+        </div>
+        <div class="video-block">
+          <video controls preload="none" poster="assets/img/uav-motor-test-poster.jpg">
+            <source src="assets/video/uav-motor-test.mp4" type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+          <p class="video-meta"><span>Motor test</span><span>bench</span></p>
+          <p>Motor order and direction checked on the bench before flight.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

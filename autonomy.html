@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The ground station | MARVL RobotX 2026</title>
+<meta name="description" content="One program holds the mission: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
+<meta property="og:title" content="The ground station | MARVL RobotX 2026" />
+<meta property="og:description" content="One program holds the mission: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html" aria-current="page">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>The ground station</h1>
+      <p class="lede">One program holds the mission. It
+drives three vehicles over MAVLink, speaks the RoboCommand protocol to the judges, and
+keeps enough state that an interruption costs seconds rather than a run.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#machines">Three state machines</a></li>
+      <li><a href="#checkpoint">Interrupt and resume</a></li>
+      <li><a href="#health">Health and escalation</a></li>
+      <li><a href="#console">The operator console</a></li>
+      <li><a href="#robocommand">The RoboCommand link</a></li>
+      <li><a href="#decisions">Design decisions</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="architecture">
+      <h2>Architecture</h2>
+      <p>Vehicles talk MAVLink. The ground station talks MQTT and protocol buffers to
+      RoboCommand. Between the two sits one orchestrator that owns every piece of mission
+      state, and everything else reads from it: the terminal console, the three
+      dimensional course view, and the protocol client.</p>
+      <figure>
+        <svg viewBox="0 0 980 430" role="img" aria-labelledby="arch-title arch-desc" style="width:100%;height:auto;background:#08202c;border:1px solid #1b4a60">
+  <title id="arch-title">Ground station architecture</title>
+  <desc id="arch-desc">Three vehicles connect over MAVLink through a WiFi HaLow link to
+  per-vehicle adapters. The adapters feed one mission orchestrator holding the vehicle,
+  task and mission state machines, the health monitor and task checkpoints. The
+  orchestrator drives the operator console, the three dimensional view and the
+  RoboCommand client, which is the only component that connects to the course broker and
+  on to RoboCommand.</desc>
+  <g font-family="Archivo, sans-serif" font-size="13" fill="#eaf1f3">
+    <g fill="none" stroke="#1b4a60" stroke-width="1">
+      <rect x="20" y="26" width="200" height="150" />
+      <rect x="290" y="26" width="200" height="150" />
+      <rect x="20" y="230" width="470" height="170" />
+      <rect x="560" y="26" width="400" height="374" />
+    </g>
+    <g fill="#7794a2" font-size="11" letter-spacing="0.04em">
+      <text x="30" y="46">VEHICLES</text>
+      <text x="300" y="46">ADAPTERS</text>
+      <text x="30" y="250">MISSION ORCHESTRATOR</text>
+      <text x="570" y="46">OPERATOR AND JUDGES</text>
+    </g>
+    <g>
+      <rect x="36" y="58" width="168" height="30" fill="#0e2c3c" stroke="#3aa0ff" />
+      <text x="48" y="78">BlueBoat, ArduRover</text>
+      <rect x="36" y="96" width="168" height="30" fill="#0e2c3c" stroke="#3aa0ff" />
+      <text x="48" y="116">BlueROV2, ArduSub</text>
+      <rect x="36" y="134" width="168" height="30" fill="#0e2c3c" stroke="#3aa0ff" />
+      <text x="48" y="154">Quadrotor, Copter</text>
+
+      <rect x="306" y="58" width="168" height="30" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="318" y="78">MAVLink adapter x3</text>
+      <rect x="306" y="96" width="168" height="68" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="318" y="118">HaLow link emulator</text>
+      <text x="318" y="138" fill="#a3bac4" font-size="11">latency, loss, bandwidth,</text>
+      <text x="318" y="153" fill="#a3bac4" font-size="11">outages (simulation only)</text>
+
+      <rect x="36" y="262" width="140" height="56" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="48" y="284">Vehicle state</text>
+      <text x="48" y="302">machines</text>
+      <rect x="190" y="262" width="140" height="56" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="202" y="284">Task state</text>
+      <text x="202" y="302">machines</text>
+      <rect x="344" y="262" width="130" height="56" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="356" y="284">Mission state</text>
+      <text x="356" y="302">machine</text>
+      <rect x="36" y="330" width="204" height="52" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="48" y="352">Health monitor</text>
+      <text x="48" y="370" fill="#a3bac4" font-size="11">heartbeats, battery, escalation</text>
+      <rect x="254" y="330" width="220" height="52" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="266" y="352">Task checkpoints</text>
+      <text x="266" y="370" fill="#a3bac4" font-size="11">suspend and resume for Task 4</text>
+
+      <rect x="576" y="58" width="368" height="46" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="590" y="86">Operator console (terminal)</text>
+      <rect x="576" y="118" width="368" height="46" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="590" y="146">Course view (browser, 3D)</text>
+      <rect x="576" y="188" width="368" height="60" fill="#0e2c3c" stroke="#3aa0ff" />
+      <text x="590" y="212">RoboCommand client</text>
+      <text x="590" y="232" fill="#a3bac4" font-size="11">MQTT and protocol buffers, 2 Hz per vehicle</text>
+      <rect x="576" y="272" width="368" height="46" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="590" y="300">Course broker, port 1883</text>
+      <rect x="576" y="332" width="368" height="46" fill="#0e2c3c" stroke="#1b4a60" />
+      <text x="590" y="360">RoboCommand (the judges)</text>
+    </g>
+    <g stroke="#3aa0ff" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+      <path d="M204 73 H300" /><path d="M204 111 H300" /><path d="M204 149 H300" />
+      <path d="M390 176 V228" />
+      <path d="M490 290 H560" /><path d="M490 290 C 530 290, 540 81, 570 81" />
+      <path d="M490 290 C 530 290, 540 141, 570 141" />
+      <path d="M760 248 V266" /><path d="M760 318 V328" />
+    </g>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#3aa0ff" />
+      </marker>
+    </defs>
+  </g>
+</svg>
+        <figcaption><b>One orchestrator, several views.</b> Only the RoboCommand client
+        touches the course network, which is what handbook 3.4 requires: vehicles never
+        connect to the judges' broker themselves.</figcaption>
+      </figure>
+      <p>The adapter interface is the reason this works. A simulated vehicle, a firmware
+      build running software in the loop and a real hull all implement the same adapter,
+      so the mission code above them has never had to know which one it is driving.</p>
+    </section>
+
+    <section class="section" id="machines">
+      <h2>Three state machines</h2>
+      <p>State lives in three places, each with one job.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>What each machine owns.</caption>
+          <thead><tr><th scope="col">Machine</th><th scope="col">One per</th><th scope="col">States</th></tr></thead>
+          <tbody>
+            <tr><td>Vehicle</td><td>vehicle</td><td class="num">OFFLINE, BOOTING, READY, AUTONOMOUS, TASK_EXECUTING, RETURNING, EMERGENCY_STOP</td></tr>
+            <tr><td>Task</td><td>task attempt</td><td class="num">INACTIVE, QUEUED, ASSIGNED, IN_PROGRESS, COMPLETE, FAILED, ABORTED</td></tr>
+            <tr><td>Mission</td><td>run</td><td class="num">IDLE, PRE_RUN_CHECK, RUNNING, EMERGENCY, COMPLETE</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Each task also carries an ordered list of steps, which is what the console shows
+      as a previous, current and next triple. A step is the smallest thing the mission can
+      be resumed at.</p>
+    </section>
+
+    <section class="section" id="checkpoint">
+      <h2>Interrupt and resume</h2>
+      <p>Task 4 is the reason the design looks like this. RoboCommand can interrupt a run
+      at any moment with an assistance request, a keep-out zone or a moving vessel. The
+      vehicle in the affected domain has to acknowledge on the wire, break off whatever it
+      was doing, respond, and then carry on.</p>
+      <p>When an incident arrives the orchestrator writes a checkpoint: the task, the step
+      it reached, the progress through the step list and the score events already earned.
+      The vehicle then runs the incident as its own task. When the incident clears, the
+      checkpoint is restored and the vehicle picks up at the step it stopped on rather
+      than at the start of the task.</p>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-task4-poster.jpg">
+          <source src="assets/video/sim-task4.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/sim-task4.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Keep-out zone, Advanced tier</span><span>30 s</span><span>Simulated</span></p>
+        <p>A keep-out zone arrives mid transit. The console acknowledges it, the boat
+        routes around the area, and the safe passage attempt resumes afterwards.</p>
+      </div>
+    </section>
+
+    <section class="section" id="health">
+      <h2>Health and escalation</h2>
+      <p>A heartbeat monitor watches every vehicle. Missed heartbeats and low battery
+      raise alerts, and sustained heartbeat loss escalates to an emergency stop rather
+      than waiting for an operator who may be looking at the water rather than the
+      screen. Battery thresholds are per vehicle, because a quadrotor at 20 percent is a
+      different problem from a boat at 20 percent.</p>
+      <p>Before any run the console can run a pre-run gate: every vehicle reachable and
+      in a ready state, every battery above its minimum, and all three domains present.
+      It is non-destructive and can be run mid-mission.</p>
+    </section>
+
+    <section class="section" id="console">
+      <h2>The operator console</h2>
+      <p>The console is a terminal application, which is a deliberate choice: it runs over
+      a shell connection from a laptop in a marquee on the promontory, it does not need a
+      browser, and it redraws fine over a slow link. The layout is fixed so that an
+      operator can find the same number in the same place under pressure.</p>
+<pre><code>+- Header (clock) ------------------------------------------------------------+
+| ROBOTX 2026 | IDLE -&gt; [RUNNING] -&gt; COMPLETE | Tier: ADVANCED | RC: * 04:12   |
++--- USV ----------------+--- UUV ---------------+--- UAV ---------------------+
+| USV  &gt; SAFE_PASSAGE    | UUV                   | UAV  &gt; SAFE_PASSAGE         |
+| READY -&gt; [TASK_EXEC]   | AUTONOMOUS            | AUTONOMOUS -&gt; [TASK_EXEC]   |
+| Step: ROUTE_RELAY      | Step: -               | Step: [ROUTE_RELAY]         |
+| Pos: 1.2834,103.8607   | Depth: 1.4 m          | Alt: 42 m                   |
+| Batt: [#######...] 73% | Batt: [########..] 81%| Batt: [#########.] 92%      |
++- Task            Prev -&gt; [Current] -&gt; Next    Tier  Vehicles ----------------+
+| SAFE_PASSAGE     ASSIGNED -&gt; [IN_PROGRESS]    ADV   usv,uav                  |
+|   Step: ROUTE_RELAY -&gt; [TRANSIT_PASSAGE] -&gt; EXIT_REPORT   ########..  72%    |
+| INFRASTRUCTURE_SURVEY   - -&gt; [QUEUED]         ADV   uuv,uav                  |
++- Incident panel (only while a Task 4 incident is live) ---------------------+
++- Health and alerts ------------------+- RoboCommand log --------------------+
+| [OK  ] USV  heartbeat 8 ms           | 14:22:01 -&gt; DockingReport bay=2      |
+| [WARN] UAV  battery low: 28.1%       | 14:22:00 &lt;- RxCommand run_start      |
++--------------------------------------+--------------------------------------+
+  F1 ESTOP  F2 Abort  F3 Pre-Check  F4 Arm  F5 T4-Core  F6 T4-Adv  F7 T4-Dis</code></pre>
+      <p>The same mission can be opened in a browser at the same time, which is the three
+      dimensional view on the <a href="simulation.html">simulation</a> page. The terminal
+      stays the console; the browser is the picture of what it is doing.</p>
+    </section>
+
+    <section class="section" id="robocommand">
+      <h2>The RoboCommand link</h2>
+      <p>Handbook 3.4 defines how teams report to the judges: MQTT over TCP on port 1883,
+      protocol buffer payloads from RoboNation's schema release, four topics, and a run
+      start handshake that gates the whole run. Our client implements it, and we have run
+      it against RoboNation's own test server.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>The four topics, from handbook 3.4.7.</caption>
+          <thead><tr><th scope="col">Purpose</th><th scope="col">Topic</th><th scope="col">Direction</th></tr></thead>
+          <tbody>
+            <tr><td>Course configuration</td><td class="num">robocommand/robotx/course</td><td>To us, retained</td></tr>
+            <tr><td>Vehicle report</td><td class="num">robocommand/robotx/SUTD/&lt;vehicle&gt;/report</td><td>From us</td></tr>
+            <tr><td>Team request</td><td class="num">robocommand/robotx/SUTD/request</td><td>From us</td></tr>
+            <tr><td>Team command</td><td class="num">robocommand/robotx/SUTD/command</td><td>To us</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Reports go out at 2 Hz per vehicle carrying state, position, speed, heading,
+      roll, pitch, altitude or depth, current task and vehicle type, with flight phase
+      added for the aircraft. Sequence numbers are per vehicle for reports and per team
+      for requests, and a response quotes the sequence number of the message it answers.</p>
+      <p>The run start sequence and the log it produced are on the
+      <a href="readiness.html#comms">proof of readiness</a> page, step by step.</p>
+    </section>
+
+    <section class="section" id="decisions">
+      <h2>Design decisions</h2>
+      <div class="cols">
+        <div>
+          <h3>Three machines rather than one</h3>
+          <p>A vehicle can be autonomous while its task is suspended and the mission is in
+          an emergency. Collapsing those into one machine would need a state for every
+          combination.</p>
+        </div>
+        <div>
+          <h3>Checkpoints outside the task machine</h3>
+          <p>A checkpoint has to survive the task machine being reset, because that is
+          what an interruption does to it. Keeping it separate is what makes resume a data
+          restore rather than a replay.</p>
+        </div>
+        <div>
+          <h3>Depth hold counts as autonomous</h3>
+          <p>Only for the underwater vehicle, which cannot hold a position it does not
+          know. The rest of the fleet has to be in a real guided mode to count.</p>
+        </div>
+        <div>
+          <h3>Only the consumed streams are requested</h3>
+          <p>ArduPilot's default stream set would saturate a HaLow link. The adapter asks
+          for position at 4 Hz and status at 1 Hz, and re-asks if telemetry stops.</p>
+        </div>
+      </div>
+      <p style="margin-top:1.6rem">The ground station carries 154 automated tests covering
+      the state machines, the orchestrator lifecycle, suspend and resume, the protocol
+      end to end, the embedded broker, the course layout and the readiness rehearsal. See
+      the <a href="testing.html#software">test record</a>.</p>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

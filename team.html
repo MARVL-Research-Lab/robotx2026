@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The team | MARVL RobotX 2026</title>
+<meta name="description" content="Who we are, how the team is organised, and the sponsors behind the 2026 entry." />
+<meta property="og:title" content="The team | MARVL RobotX 2026" />
+<meta property="og:description" content="Who we are, how the team is organised, and the sponsors behind the 2026 entry." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html" aria-current="page">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>The team</h1>
+      <p class="lede">MARVL is the Multi-Agent Robotics Vision and
+Learning Lab at the Singapore University of Technology and Design. RobotX 2026 is a
+lab-wide project across software, three vehicle builds and the safety case behind
+them.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#who">Who we are</a></li>
+      <li><a href="#structure">How the team is organised</a></li>
+      <li><a href="#roster">Members</a></li>
+      <li><a href="#sponsors">Sponsors and support</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="who">
+      <h2>Who we are</h2>
+      <p>MARVL works on mobile robotics, multi-robot coordination, planning and
+      scheduling, computer vision and machine learning, with field robotics on marine,
+      ground and aerial platforms. The lab has run surface and underwater vehicles in
+      Singapore waters for several years, and RobotX 2026 is the first time all three
+      domains are flown together as one system.</p>
+      <p>The competition entry is a student team under the RoboNation eligibility rules:
+      at least three quarters of the members are full-time students, and students do the
+      engineering. Staff and alumni advise.</p>
+      <figure>
+        <img src="assets/img/uav-pool-float.jpg" alt="A team member in a swimming pool beside the quadrotor floating upright on its foam." loading="lazy" width="1050" height="590" />
+        <figcaption><b>Buoyancy test.</b> The aircraft has to float and be recoverable
+        after a ditching, so we put it in the pool and swam it back.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="structure">
+      <h2>How the team is organised</h2>
+      <p>Work is split into four builds and three cross-cutting tracks. Everything meets
+      at the ground station, which is the only piece of software that talks to all three
+      vehicles and to RoboCommand.</p>
+      <div class="cols">
+        <div>
+          <h3>Vehicle builds</h3>
+          <p>One group per vehicle, each responsible for its own autopilot configuration,
+          safety systems and proof of readiness package.</p>
+        </div>
+        <div>
+          <h3>Autonomy</h3>
+          <p>Mission orchestration, task state machines, the operator console and the
+          simulation stack that all of it is tested against.</p>
+        </div>
+        <div>
+          <h3>Perception</h3>
+          <p>Buoy and pipeline detection, camera work on the ROV and the aircraft, and
+          the datasets behind them.</p>
+        </div>
+        <div>
+          <h3>Safety and compliance</h3>
+          <p>Kill switch chains, failsafe behaviour, RF declarations, pilot licensing and
+          the airworthiness case with CAAS.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roster">
+      <h2>Members</h2>
+      <div class="note note-todo">
+        <h3>Editor note, remove before submission</h3>
+        <p>Replace each card below with a member name, programme and year. The roster is
+        plain HTML in <code>team.html</code>; add or remove cards as the team changes.</p>
+      </div>
+      <div class="roster">
+        <div class="member">
+          <p class="role">Team lead</p>
+          <h4>Add name</h4>
+          <p>Speaks for the team during runs, runs the schedule and the daily brief.</p>
+        </div>
+        <div class="member">
+          <p class="role">Autonomy and ground station</p>
+          <h4>Add name</h4>
+          <p>Mission orchestration, state machines, RoboCommand link, operator console.</p>
+        </div>
+        <div class="member">
+          <p class="role">Perception</p>
+          <h4>Add name</h4>
+          <p>Buoy, pipeline and docking detection, camera calibration, onboard inference.</p>
+        </div>
+        <div class="member">
+          <p class="role">Surface vehicle</p>
+          <h4>Add name</h4>
+          <p>BlueBoat integration, propulsion, kill switch chain, docking and firefighting payload.</p>
+        </div>
+        <div class="member">
+          <p class="role">Underwater vehicle</p>
+          <h4>Add name</h4>
+          <p>BlueROV2 integration, depth control, magnetic probe, pipeline survey.</p>
+        </div>
+        <div class="member">
+          <p class="role">Aerial vehicle</p>
+          <h4>Add name</h4>
+          <p>Airframe build, flight testing, delivery mechanism, pilot liaison.</p>
+        </div>
+        <div class="member">
+          <p class="role">Safety pilot</p>
+          <h4>Add name</h4>
+          <p>Licensed UAV pilot, manual takeover, airworthiness and CAAS paperwork.</p>
+        </div>
+        <div class="member">
+          <p class="role">Communications and compliance</p>
+          <h4>Add name</h4>
+          <p>RF submissions, network setup on the course, protocol conformance.</p>
+        </div>
+      </div>
+      <p style="margin-top:1.5rem">Faculty advisor and lab: <a href="https://www.malikameghjani.com/">MARVL,
+      Singapore University of Technology and Design</a>.</p>
+    </section>
+
+    <section class="section" id="sponsors">
+      <h2>Sponsors and support</h2>
+      <p>Three organisations carry this entry. Logos below are placeholders until the
+      official files are dropped in.</p>
+      <div class="sponsors">
+        <div class="sponsor">
+          <div class="mark"><img src="assets/img/logo-sutd.svg" alt="Singapore University of Technology and Design" /></div>
+          <h3>Singapore University of Technology and Design</h3>
+          <p>Host university. Workshop and pool access, field time, shipping and the
+          staff support behind the safety case.</p>
+        </div>
+        <div class="sponsor">
+          <div class="mark"><img src="assets/img/logo-marvl.svg" alt="MARVL, Multi-Agent Robotics Vision and Learning Lab" /></div>
+          <h3>MARVL Lab</h3>
+          <p>Host lab. Vehicles, test equipment, and the marine robotics experience the
+          team builds on.</p>
+        </div>
+        <div class="sponsor">
+          <div class="mark"><img src="assets/img/logo-blue-robotics.svg" alt="Blue Robotics" /></div>
+          <h3>Blue Robotics</h3>
+          <p>BlueBoat and BlueROV2 platforms through the RobotX granted platform
+          programme, with spares and thruster support.</p>
+        </div>
+      </div>
+      <div class="note">
+        <h3>Supporting the team</h3>
+        <p>We are looking for support in three areas for the 2026 season: field time and
+        boat cover in Singapore waters, components for the delivery mechanism, and travel
+        for the event week in November. Write to us at the address below.</p>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <ul class="readout">
+        <li><span>Team</span><b>MARVL, team id SUTD</b></li>
+        <li><span>Institution</span><b>Singapore University of Technology and Design</b></li>
+        <li><span>Email</span><b><a href="mailto:marvl-robotx@sutd.edu.sg">marvl-robotx@sutd.edu.sg</a></b></li>
+        <li><span>Address</span><b>8 Somapah Road, Singapore 487372</b></li>
+        <li><span>Code</span><b><a href="https://github.com/MARVL-Research-Lab/robotx2026">github.com/MARVL-Research-Lab</a></b></li>
+      </ul>
+      <div class="note note-todo">
+        <h3>Editor note, remove before submission</h3>
+        <p>Confirm the contact address above. It is the one place on the site where a
+        judge, a sponsor or another team is expected to reach the team, so it has to be a
+        mailbox somebody reads.</p>
+      </div>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BlueROV2, the underwater vehicle | MARVL RobotX 2026</title>
+<meta name="description" content="The BlueROV2: depth hold autonomy without a position source, pipeline survey and magnetic repair." />
+<meta property="og:title" content="BlueROV2, the underwater vehicle | MARVL RobotX 2026" />
+<meta property="og:description" content="The BlueROV2: depth hold autonomy without a position source, pipeline survey and magnetic repair." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html" aria-current="page">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <p class="crumb"><a href="vehicles.html">Vehicles</a> / BlueROV2</p>
+      <h1>BlueROV2</h1>
+      <p class="lede">The underwater vehicle surveys the pipeline and repairs it. It is also the vehicle
+that forced the most interesting design decision of the season, because it has no idea
+where it is.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#build-uuv">The platform</a></li>
+      <li><a href="#position">No position underwater</a></li>
+      <li><a href="#control">Control interface</a></li>
+      <li><a href="#survey">Pipeline survey and repair</a></li>
+      <li><a href="#safety-uuv">Safety systems</a></li>
+      <li><a href="#evidence-uuv">Evidence</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="build-uuv">
+      <h2>The platform</h2>
+      <p>A BlueROV2 in the heavy configuration: six thrusters, an ArduSub autopilot on a
+      Pixhawk, and a Raspberry Pi running BlueOS that carries video and MAVLink up the
+      tether. Autonomy talks to it on one UDP endpoint while a pilot keeps
+      QGroundControl on another, so a human can take the vehicle at any moment without
+      the autonomy stack being torn down.</p>
+      <ul class="readout">
+        <li><span>Frame</span><b>BlueROV2, 0.46 m, six thrusters</b></li>
+        <li><span>Autopilot</span><b>ArduSub on Pixhawk</b></li>
+        <li><span>Companion</span><b>Raspberry Pi, BlueOS at 192.168.2.2</b></li>
+        <li><span>Autonomy endpoint</span><b>udpin 14551</b></li>
+        <li><span>Pilot endpoint</span><b>udpin 14550, QGroundControl</b></li>
+        <li><span>Camera</span><b>RTSP H264, 1280x720 at 15 fps</b></li>
+      </ul>
+    </section>
+
+    <section class="section" id="position">
+      <h2>No position underwater</h2>
+      <p>ArduSub refuses GUIDED and POSHOLD with "requires position" whenever the filter
+      has no position estimate. In software in the loop that clears about a minute after
+      boot, once the filter starts using GPS. On the real vehicle underwater it never
+      clears, because a BlueROV2 without a Doppler log or an acoustic positioning system
+      has no absolute position source at all.</p>
+      <p>Rather than add hardware the budget does not have, the ground station treats
+      depth hold as an autonomous mode for this vehicle only. The adapter asks for GUIDED
+      first, falls back to depth hold when arming, and drives the vehicle with body frame
+      velocity commands. Depth is closed by the autopilot, which is the one axis it can
+      hold well without position.</p>
+      <div class="note">
+        <h3>What this costs and what it buys</h3>
+        <p>The cost is that the survey is flown on heading and time rather than on
+        waypoints, so the pipeline has to be reacquired visually rather than assumed.
+        What it buys is a vehicle that is autonomous in the water on day one, with no
+        dependency on a sensor that may not arrive.</p>
+      </div>
+    </section>
+
+    <section class="section" id="control">
+      <h2>Control interface</h2>
+      <p>Two ways into the vehicle, both through the same adapter.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>The two command paths and when each is used.</caption>
+          <thead><tr><th scope="col">Command</th><th scope="col">What it does</th><th scope="col">Used for</th></tr></thead>
+          <tbody>
+            <tr><td class="num">VELOCITY</td><td>Body frame velocity with yaw rate, in depth hold</td><td>The normal autonomy path: transit, survey, station keeping</td></tr>
+            <tr><td class="num">RC_OVERRIDE</td><td>Writes the same channels a pilot's transmitter writes, 1500 neutral, 1100 to 1900 full scale</td><td>Fine positioning on the pipeline, and handing the vehicle back to a pilot mid-run</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Channels left unnamed in an override keep the pilot's stick values instead of
+      being zeroed, which is what makes a hands-on-the-controller takeover work rather
+      than fight the autonomy.</p>
+    </section>
+
+    <section class="section" id="survey">
+      <h2>Pipeline survey and repair</h2>
+      <p>Task 2 starts at the buoy with the green indicator, which is the one with the
+      active pinger below it. The vehicle descends, finds the pipeline, and reports each
+      of the five segments as intact or damaged from that end. The damaged segment shows
+      a red light ring with a magnetic switch at its centre; holding the probe there
+      turns the light green.</p>
+      <p>At Advanced the repaired node then flashes a colour for thirty seconds to name
+      the resource it needs. The vehicle sends that request to the aircraft and reports
+      completion to RoboCommand. At Disruptive the node flashes two colours, the first
+      naming the tin and the second naming the delivery circle, and the request carries
+      both.</p>
+      <figure>
+        <img src="assets/img/sim-chase-uuv.jpg" alt="Simulator view behind the ROV underwater, lamps lighting the seabed, tether rising to the boat." loading="lazy" width="1280" height="650" />
+        <figcaption><b>Rehearsing the survey.</b> The chase camera holds below the surface
+        while the vehicle is under, because Marina Bay is a working harbour and a camera
+        above the water sees nothing.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="safety-uuv">
+      <h2>Safety systems</h2>
+      <ul>
+        <li>Onboard kill switch, with the vehicle positively buoyant when killed so it
+        surfaces rather than sinks.</li>
+        <li>Status light readable at about 80 m while surfaced, showing kill, manual and
+        autonomous.</li>
+        <li>Marked tow and lift points with a harness.</li>
+        <li>A dedicated mounting location for the RJE ULB-350 locator beacon the event
+        issues before any underwater vehicle enters the water, mounted vertically with
+        the end cap down.</li>
+        <li>Tether to the boat kept positively buoyant, under 6 m, and strong enough to
+        recover the vehicle by pulling on it.</li>
+      </ul>
+      <p>Nothing attached to the vehicle is allowed to float on the surface during a
+      scoring run, and the vehicle must not breach, which is why depth hold is armed
+      before the run rather than after the first transit.</p>
+    </section>
+
+    <section class="section" id="evidence-uuv">
+      <h2>Evidence</h2>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-por-uuv-poster.jpg">
+          <source src="assets/video/sim-por-uuv.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/sim-por-uuv.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Readiness rehearsal, handbook 3.1.3</span><span>35 s</span><span>Simulated</span></p>
+        <p>The 3.1.3 course flown in our simulator: start 3 m behind the gate, submerge,
+        pass under the 2 m gate inside its width, circle the marker 10 m beyond it and
+        return, with depth and clearance judged live against the handbook criteria. The
+        vehicle stays below 0.3 m of the surface throughout.</p>
+      </div>
+      <div class="note note-todo">
+        <h3>Editor note, remove before submission</h3>
+        <p>Add photographs of the ROV itself: the beacon mounting location, the tow and
+        lift points, the status light and the magnetic probe. The readiness package has
+        them; the site does not yet.</p>
+      </div>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

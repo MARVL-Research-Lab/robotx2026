@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simulation | MARVL RobotX 2026</title>
+<meta name="description" content="Real autopilot firmware behind an emulated radio, and a model of the Marina Bay course you can fly in the browser." />
+<meta property="og:title" content="Simulation | MARVL RobotX 2026" />
+<meta property="og:description" content="Real autopilot firmware behind an emulated radio, and a model of the Marina Bay course you can fly in the browser." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html" aria-current="page">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>Simulation</h1>
+      <p class="lede">The course is in Singapore, the hardware is
+shared between four builds and the season is short. So the mission is flown in software
+first: the real firmware behind an emulated radio, and a model of the Marina Bay course
+built from the handbook's own dimensions.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#try">Fly the course</a></li>
+      <li><a href="#layers">Four layers</a></li>
+      <li><a href="#sitl">The real firmware</a></li>
+      <li><a href="#twin">The course model</a></li>
+      <li><a href="#validation">End to end validation</a></li>
+      <li><a href="#honest">What is real and what is not</a></li>
+      <li><a href="#next">What comes next</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="try">
+      <h2>Fly the course</h2>
+      <p>This is the same scene the team rehearses with, running in your browser. It
+      starts paused. Press start, then use the camera buttons to follow a vehicle, or
+      trigger one of the Task 4 interruptions and watch the mission recover.</p>
+      <div class="sim-frame" data-sim="sim/" data-sim-title="RobotX 2026 course simulator">
+        <img src="assets/img/sim-course.jpg" alt="The Marina Bay course in the simulator, with the buoy field lit and Marina Bay Sands behind it." width="1600" height="813" />
+        <button class="sim-start" type="button">
+          <span class="play" aria-hidden="true">&#9654;</span>
+          <b>Start the course simulator</b>
+          <span>Loads about 9 MB and needs WebGL.</span>
+        </button>
+      </div>
+      <p class="video-meta"><a href="sim/">Open the simulator in its own tab</a></p>
+      <p class="video-meta"><span>Controls</span><span>Space: start</span><span>C: camera</span><span>1 2 3: chase a vehicle</span><span>5 6 7: Task 4 interruptions</span><span>M: manual takeover</span></p>
+    </section>
+
+    <section class="section" id="layers">
+      <h2>Four layers</h2>
+      <p>Each layer answers a different question, and each is cheap enough to run on the
+      machine in front of whoever is working.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>What we simulate and why.</caption>
+          <thead><tr><th scope="col">Layer</th><th scope="col">Answers</th><th scope="col">Cost to run</th></tr></thead>
+          <tbody>
+            <tr><td>Python vehicle models</td><td>Does the mission logic hold together? Deterministic, instant, used by the test suite.</td><td class="num">seconds</td></tr>
+            <tr><td>ArduPilot software in the loop</td><td>Does the real firmware accept what we send it? Prearm checks, filter convergence, mode changes, failsafes.</td><td class="num">2 s to boot the fleet</td></tr>
+            <tr><td>HaLow link emulator</td><td>Does it still work over a radio that drops packets and fades?</td><td class="num">in line with the above</td></tr>
+            <tr><td>Course model in the browser</td><td>Does the plan make sense on the actual course, and can a judge or a teammate see it?</td><td class="num">a browser tab</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="sitl">
+      <h2>The real firmware, on a laptop</h2>
+      <p>Software in the loop runs the exact firmware the vehicles run, compiled for the
+      host: ArduRover with a motorboat model for the BlueBoat, ArduSub with a vectored
+      model for the ROV, and Copter with a quad model for the aircraft. That gives us the
+      behaviour that matters and none of the risk: real arming checks, real filter
+      convergence, real guided navigation, real failsafes.</p>
+      <p>Between the firmware and the ground station sits an emulator for the WiFi HaLow
+      link, because the radio is part of the system. It adds fixed latency and jitter,
+      random loss, a bandwidth cap and periodic outages.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Link profiles. The fringe profile is the one that finds bugs.</caption>
+          <thead><tr><th scope="col">Profile</th><th scope="col">Behaviour</th></tr></thead>
+          <tbody>
+            <tr><td class="num">perfect</td><td>No impairment. Used when a test is about something else.</td></tr>
+            <tr><td class="num">halow_near</td><td>Short range, low latency, occasional loss.</td></tr>
+            <tr><td class="num">halow_typical</td><td>The link we expect on the course.</td></tr>
+            <tr><td class="num">halow_fringe</td><td>60 ms of latency with 40 ms of jitter, 8 percent loss, 300 kbps, and a two second fade every 25 seconds.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Under the fringe profile the health monitor escalates to an emergency stop on
+      heartbeat loss, which is the correct behaviour and the reason the profile exists.
+      It is also what led to the adapter requesting only the telemetry it consumes
+      instead of ArduPilot's default stream set.</p>
+    </section>
+
+    <section class="section" id="twin">
+      <h2>The course model</h2>
+      <p>Everything on the water is built from the handbook's build specifications, in
+      metres: ten buoys with side and top light beacons, the pair of survey buoys with
+      their colour indicators and pingers, a five section pipeline on stands with five
+      magnetic light nodes, three docking bays with their windows and indicators, two 2 m
+      delivery platforms with 65 cm circles in the specified colours, and the launch pad.
+      Marina Bay Sands, the ArtScience lotus, the Flyer and the Helix Bridge are there
+      because they are what the operator will actually be looking at.</p>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-mission-poster.jpg">
+          <source src="assets/video/sim-mission.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/sim-mission.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Advanced tier run</span><span>56 s</span><span>Simulated</span></p>
+        <p>A full safe passage attempt at Advanced: the aircraft flies the buoy field
+        first because the route is only visible from above, relays it to the boat, and
+        the boat circles the entry buoy and transits. The panel on the right is the
+        RoboCommand traffic the real link would carry.</p>
+      </div>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-pipeline-poster.jpg">
+          <source src="assets/video/sim-pipeline.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/sim-pipeline.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Pipeline survey</span><span>33 s</span><span>Simulated</span></p>
+        <p>The ROV at transit depth with the tether running up to the boat. The water is
+        opaque on purpose: Marina Bay is a working harbour, and a camera above the surface
+        would see nothing.</p>
+      </div>
+      <p>The same scene has three other modes. It can mirror live RoboCommand traffic off
+      a broker, read MAVLink telemetry straight off a vehicle or a software in the loop
+      fleet, or be served by the running ground station so the terminal console and the
+      browser show one mission.</p>
+      <figure>
+        <img src="assets/img/sim-visuals.jpg" alt="The simulator with the visual settings panel open, showing sliders for glare, glitter and water tone." loading="lazy" width="1280" height="650" />
+        <figcaption><b>Contrast is a setting.</b> A low sun over the bay puts a white
+        band exactly where the buoys are, so every effect that costs contrast has a
+        slider behind it, with one preset for reading the course and one for
+        video.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="validation">
+      <h2>End to end validation</h2>
+      <p>One command launches the fleet, runs a full scripted mission against it and
+      prints a pass or fail table of 25 checks. It covers the sequence from a cold start
+      to a stop: fleet ready with position, the pre-run gate, the course configuration and
+      run declaration, arming against real prearm checks, run start, takeoff, task
+      dispatch, buoy circling and the passage transit under guided navigation, an
+      assistance request arriving mid transit, the checkpoint, the incident response with
+      its acknowledgement on the wire, resume from the checkpoint, the safe passage
+      report, task and mission completion, return to launch, and an emergency stop that
+      disarms everything.</p>
+      <p>The exit code gates continuous integration, so a change that breaks the mission
+      breaks the build.</p>
+      <p>The browser scene is checked the same way. A headless harness builds the whole
+      world without a screen, flies the mission, and fails if a task does not complete, if
+      the expected RoboCommand messages do not appear in order, if a chase camera loses
+      its vehicle, or if the underwater chase camera comes above the surface.</p>
+    </section>
+
+    <section class="section" id="honest">
+      <h2>What is real and what is not</h2>
+      <div class="cols">
+        <div>
+          <h3>Real</h3>
+          <p>The autopilot firmware, its arming and failsafe logic, the MQTT broker, the
+          protocol buffer schema from the competition release, the message rates, and the
+          ground station itself. The same program drives the simulated fleet and the
+          hardware.</p>
+        </div>
+        <div>
+          <h3>Not real</h3>
+          <p>Hydrodynamics beyond the firmware's own models, waves and current, and
+          anything to do with cameras. Perception cannot be tested here, which is why the
+          detector work runs on recorded footage instead.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="next">
+      <h2>What comes next</h2>
+      <p>Two additions are planned. Tasks 2 and 3 get their own validation scenarios, so
+      the pipeline follow and the dock approach are exercised the way the safe passage
+      already is. After that, a Gazebo world with the course props would add simulated
+      cameras and disturbances, which is what perception in the loop needs.</p>
+      <p>Photorealistic underwater rendering on Isaac Sim was evaluated and set aside: the
+      lab's current graphics card is not supported by the versions that carry the
+      underwater work, and nothing in the mission logic needs it.</p>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

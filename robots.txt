@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marvl-research-lab.github.io/robotx2026/sitemap.xml

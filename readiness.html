@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proof of readiness | MARVL RobotX 2026</title>
+<meta name="description" content="The handbook 3.1 submissions for the boat, the ROV, the aircraft and communications, and the evidence behind them." />
+<meta property="og:title" content="Proof of readiness | MARVL RobotX 2026" />
+<meta property="og:description" content="The handbook 3.1 submissions for the boat, the ROV, the aircraft and communications, and the evidence behind them." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html" aria-current="page">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>Proof of readiness</h1>
+      <p class="lede">Nothing a team owns goes in the water
+at RobotX 2026 until its readiness submission has passed. Handbook section 3.1 asks for a
+recorded autonomous run per domain, drawings and photographs of the safety systems, and a
+log of a real run start sequence. This is what we sent and what backs it.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#status">Status</a></li>
+      <li><a href="#usv">Surface vehicle</a></li>
+      <li><a href="#uuv">Underwater vehicle</a></li>
+      <li><a href="#uav">Aircraft and pilot</a></li>
+      <li><a href="#comms">Communications</a></li>
+      <li><a href="#rehearsal">Rehearsing a submission</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="status">
+      <h2>Status</h2>
+      <p>Submissions are reviewed on a rolling basis and come back as pass or fail, and a
+      failed one can be resubmitted until the window closes. The mandatory window for a
+      surface vehicle plus one other domain closed on 31 August 2026; the optional third
+      system closes on 12 October 2026.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Our four packages.</caption>
+          <thead><tr><th scope="col">Submission</th><th scope="col">Handbook</th><th scope="col">Contents</th><th scope="col">State</th></tr></thead>
+          <tbody>
+            <tr><td>Surface vehicle</td><td class="num">3.1.2</td><td>Autonomous gate run, kill switch drawings, tow and lift points, shrouds, control block diagram</td><td><span class="tag tag-blue">Submitted</span></td></tr>
+            <tr><td>Underwater vehicle</td><td class="num">3.1.3</td><td>Submerged gate run, kill switch drawing, tow and lift points, shrouds, beacon mounting, buoyancy</td><td><span class="tag tag-blue">Submitted</span></td></tr>
+            <tr><td>Aircraft and pilot</td><td class="num">3.1.4</td><td>Information package, manual and autonomous flights, safety behaviour, controller compliance</td><td><span class="tag tag-blue">Submitted</span></td></tr>
+            <tr><td>Communications</td><td class="num">3.1.5</td><td>RF emitter worksheet and a run start log from RoboNation's test server</td><td><span class="tag tag-blue">Submitted</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The full requirement list runs to 63 items across 3.1.1 to 3.1.5. We track all of
+      them in the rehearsal tool below, which marks the ones a rehearsal can judge and
+      leaves the rest as evidence a person has to produce.</p>
+    </section>
+
+    <section class="section" id="usv">
+      <h2>Surface vehicle, 3.1.2</h2>
+      <p>The demonstration is a fully autonomous run starting 3 m behind the gate, through
+      both sets of gates, without striking a buoy, with steady control throughout. The
+      upload set is the kill switch wiring, the marked tow and lift points with their
+      harness, the propeller shrouds, and a block diagram showing that manual control
+      works with the laptop switched off.</p>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/usv-autonomous-run-poster.jpg">
+          <source src="assets/video/usv-autonomous-run.mp4" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+        <p class="video-meta"><span>Autonomous operations</span><span>21 s</span></p>
+      </div>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-por-usv-poster.jpg">
+          <source src="assets/video/sim-por-usv.mp4" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+        <p class="video-meta"><span>Rehearsal of the same run</span><span>40 s</span><span>Simulated</span></p>
+        <p>The 3.1.2 course built to the handbook's dimensions, with the gate crossings,
+        the clearance to the nearest buoy and the mode judged as the run goes.</p>
+      </div>
+    </section>
+
+    <section class="section" id="uuv">
+      <h2>Underwater vehicle, 3.1.3</h2>
+      <p>The run starts 3 m behind a 2 m gate hung 1 m below the surface. The vehicle
+      submerges, passes under the gate, circles a marker 10 m beyond it and returns
+      through the gate, without breaching and without anything attached to it floating on
+      the surface.</p>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-por-uuv-poster.jpg">
+          <source src="assets/video/sim-por-uuv.mp4" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+        <p class="video-meta"><span>Rehearsal, handbook 3.1.3</span><span>35 s</span><span>Simulated</span></p>
+        <p>Depth is drawn as a column from the hull to the surface and turns red if the
+        vehicle comes within 0.3 m of breaching. The turn around the marker is swept and
+        captioned with the degrees completed.</p>
+      </div>
+      <div class="note note-todo">
+        <h3>Editor note, remove before submission</h3>
+        <p>Add the submitted underwater run video and the safety photographs for this
+        section. The page currently shows the rehearsal only.</p>
+      </div>
+    </section>
+
+    <section class="section" id="uav">
+      <h2>Aircraft and pilot, 3.1.4</h2>
+      <p>The aerial package is the largest one. It carries an information package for
+      airframe and pilot review, a flight demonstration in both manual and autonomous
+      modes with mode proof, a takeoff above 3 m, the published pattern, geofence and
+      ceiling compliance when commanded past them, and a landing. Then the safety systems:
+      the emergency recovery light mounting area, the marked handling areas, behaviour on
+      link loss, low battery, mission abort and geofence, and the dedicated controller.</p>
+      <div class="media-grid">
+        <figure><img src="assets/img/uav-recovery-light.jpg" alt="The mounting area for the emergency recovery light marked on the aircraft." loading="lazy" width="1280" height="720" /><figcaption>Mounting area for the water activated recovery light the event issues.</figcaption></figure>
+        <figure><img src="assets/img/uav-safe-handling.jpg" alt="The aircraft with safe handling areas marked." loading="lazy" width="1280" height="960" /><figcaption>Marked safe handling areas.</figcaption></figure>
+        <figure><img class="diagram" src="assets/img/uav-gcs.jpg" alt="Screenshot of the ground station showing the aircraft's telemetry." loading="lazy" width="1280" height="720" /><figcaption>The ground station display, showing position, altitude, mode and link state.</figcaption></figure>
+      </div>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/sim-por-uav-poster.jpg">
+          <source src="assets/video/sim-por-uav.mp4" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+        <p class="video-meta"><span>Rehearsal, handbook 3.1.4</span><span>47 s</span><span>Simulated</span></p>
+        <p>The rehearsal flies both modes, then commands the aircraft 15 m past the fence
+        and 20 m above the ceiling. The criterion passes only when the aircraft can be
+        seen refusing to go, which is what the video has to show.</p>
+      </div>
+      <p>The flights themselves are on the <a href="uav.html#flight">aircraft page</a>:
+      manual, autonomous, geofence, link loss and buoyancy.</p>
+    </section>
+
+    <section class="section" id="comms">
+      <h2>Communications, 3.1.5</h2>
+      <p>This one asks for two things: the RF emitter worksheet for every radio we bring,
+      and logs showing a run start sequence per handbook 3.4.10 with at least two vehicles
+      in the declaration. We ran it against RoboNation's own rc-test server, so the log we
+      submitted was written by their code, decoding our traffic against their schema.</p>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/comms-run-start-poster.jpg">
+          <source src="assets/video/comms-run-start.mp4" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+        <p class="video-meta"><span>Run start sequence</span><span>1 min 11 s</span><span>Our console on the left, rc-test on the right</span></p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <caption>The eight steps of 3.4.10 and what each produced in that run.</caption>
+          <thead><tr><th class="num" scope="col">Step</th><th scope="col">What happens</th><th scope="col">Evidence</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Console connects to the course broker</td><td>One MQTT connection carrying every subscription and publication</td></tr>
+            <tr><td class="num">2</td><td>Console subscribes to the course and command topics</td><td>Implied by step 3: the retained course could not arrive otherwise</td></tr>
+            <tr><td class="num">3</td><td>Course configuration received and validated</td><td>Course ALPHA, pinger 25 kHz, five point closed boundary</td></tr>
+            <tr><td class="num">4</td><td>Run declaration published</td><td>Sequence 1, three vehicles, a tier per task, a five point aerial geofence</td></tr>
+            <tr><td class="num">5</td><td>Heartbeats for every declared vehicle</td><td>2 Hz per vehicle while the fleet is held in manual</td></tr>
+            <tr><td class="num">6</td><td>Each vehicle reports autonomous</td><td>All three transition once armed and holding position</td></tr>
+            <tr><td class="num">7</td><td>RoboCommand publishes the run start</td><td>Released on the third autonomous report: run 1, declaration sequence 1</td></tr>
+            <tr><td class="num">8</td><td>Console verifies the declaration sequence</td><td>Matched against what we sent. A run start quoting anything else is logged and ignored</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The console output from that run:</p>
+<pre><code>16:25:38 | INFO    | RoboCommand connected: team=SUTD
+16:25:38 | INFO    | RoboCommand: course ALPHA pinger=25000 Hz boundary=5 points
+16:25:38 | INFO    | RoboCommand: RunDeclaration seq=1 vehicles=USV1,UUV1,UAV1
+16:25:49 | SUCCESS | RoboCommand: RunStart run_id=1 declaration_seq=1 verified
+
+  PASS  MQTT connection
+  PASS  retained RxCourse received
+  PASS  RunDeclaration published
+  PASS  at least two vehicles declared
+  PASS  RunStart received
+  PASS  RunStart quotes declaration_seq=1
+Run 1 started on course ALPHA</code></pre>
+      <p>The log also demonstrates the parts of 3.4 that are easy to get wrong: per
+      vehicle sequence counters independent of the team request counter, complete
+      heartbeat telemetry including flight phase for the aircraft, correct vehicle typing
+      on each topic segment, and a real tier per task rather than an unknown value.</p>
+    </section>
+
+    <section class="section" id="rehearsal">
+      <h2>Rehearsing a submission</h2>
+      <p>Each readiness course is small, specified in the handbook to the metre, and
+      expensive to build twice. So we built all four in the simulator and fly the
+      demonstration before we film it. Every criterion carries the rule it applies and the
+      number it measured, so a pass is a measurement rather than an opinion.</p>
+      <div class="sim-frame" data-sim="sim/readiness.html" data-sim-title="Proof of readiness rehearsal">
+        <img src="assets/img/sim-readiness-usv.jpg" alt="The readiness rehearsal page with the boat lined up on a gate and the criteria listed beside it." width="1280" height="650" />
+        <button class="sim-start" type="button">
+          <span class="play" aria-hidden="true">&#9654;</span>
+          <b>Open the readiness rehearsal</b>
+          <span>Four submissions, the courses of handbook 3.1, and the 63 item
+          checklist.</span>
+        </button>
+      </div>
+      <p class="video-meta"><a href="sim/readiness.html">Open the rehearsal in its own tab</a></p>
+      <figure>
+        <img src="assets/img/sim-readiness-uav.jpg" alt="The aircraft held at its ceiling in the rehearsal, with the altitude drawn on a line to its shadow." loading="lazy" width="1280" height="650" />
+        <figcaption><b>The ceiling test.</b> Commanded 20 m above the declared ceiling and
+        held at it, with the height drawn on a line down to the aircraft's shadow.</figcaption>
+      </figure>
+      <p>The checklist on the right of that page carries all 63 requirements with their
+      section and the kind of evidence each one wants. Requirements backed by a file on
+      disk are marked from disk rather than from a checkbox, and the whole thing exports
+      as a markdown checklist for the submission review.</p>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

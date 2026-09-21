@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BlueBoat, the surface vessel | MARVL RobotX 2026</title>
+<meta name="description" content="The BlueBoat: platform, safety systems, autonomy and perception for the RobotX 2026 surface tasks." />
+<meta property="og:title" content="BlueBoat, the surface vessel | MARVL RobotX 2026" />
+<meta property="og:description" content="The BlueBoat: platform, safety systems, autonomy and perception for the RobotX 2026 surface tasks." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html" aria-current="page">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <p class="crumb"><a href="vehicles.html">Vehicles</a> / BlueBoat</p>
+      <h1>BlueBoat</h1>
+      <p class="lede">The surface vessel runs the safe passage, docks and fights the window fire, and is the
+only vehicle that has to keep a status light visible at a hundred metres while doing
+it.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#build">The platform</a></li>
+      <li><a href="#safety">Safety systems</a></li>
+      <li><a href="#autonomy-usv">How it is driven</a></li>
+      <li><a href="#perception-usv">Perception</a></li>
+      <li><a href="#evidence-usv">Evidence</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="build">
+      <h2>The platform</h2>
+      <p>A Blue Robotics BlueBoat: a 1.2 m catamaran with two thrusters, an ArduRover
+      autopilot on a Pixhawk, and a companion computer that carries the WiFi HaLow link
+      back to shore. The ground station drives it over MAVLink, so the boat is reached
+      the same way in simulation, in software in the loop and on the water.</p>
+      <ul class="readout">
+        <li><span>Hull</span><b>BlueBoat catamaran, 1.2 m</b></li>
+        <li><span>Autopilot</span><b>ArduRover on Pixhawk</b></li>
+        <li><span>Autonomy modes</span><b>GUIDED, with AUTO for surveys</b></li>
+        <li><span>Ground link</span><b>WiFi HaLow, MAVLink at 14550</b></li>
+        <li><span>Telemetry to shore</span><b>Position 4 Hz, status 1 Hz</b></li>
+      </ul>
+      <figure>
+        <img src="assets/img/usv-tow-lift-points.jpg" alt="Annotated photograph of the BlueBoat frame with four tow and lift points circled." loading="lazy" width="1254" height="944" />
+        <figcaption><b>Tow and lift points.</b> Four marked points on the cross members,
+        with a harness that takes the boat out of the water without loading the hulls.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="safety">
+      <h2>Safety systems</h2>
+      <p>Section 5.2 of the handbook is specific about what a surface vessel has to carry,
+      and all of it is on the boat.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Handbook 5.2 requirements and how the boat meets them.</caption>
+          <thead><tr><th scope="col">Requirement</th><th scope="col">On the boat</th></tr></thead>
+          <tbody>
+            <tr><td>Onboard and remote kill switches, fail safe, red, 3 cm or larger</td><td>Mushroom head switch on the cross member and a wireless stop that cuts propulsion power within two seconds</td></tr>
+            <tr><td>Shrouded propellers, 5 cm clearance or a finger guard</td><td>Printed shrouds over both thrusters, each labelled</td></tr>
+            <tr><td>Marked multi-point tow harness and lift points</td><td>Four marked points on the frame with a matching harness</td></tr>
+            <tr><td>Visual feedback showing kill, manual and autonomous</td><td>Mast light visible through 360 degrees in daylight</td></tr>
+            <tr><td>Manual control independent of a laptop</td><td>Dedicated transmitter and receiver, documented in the block diagram below</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="media-grid">
+        <figure>
+          <img src="assets/img/usv-propeller-shrouds.jpg" alt="Two thrusters with white printed shrouds, one labelled caution propeller." loading="lazy" width="1280" height="720" />
+          <figcaption>Thruster shrouds and the caution labels either side.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/img/usv-kill-switch.jpg"><img class="diagram" src="assets/img/usv-kill-switch.jpg" alt="Functional diagram of the kill switch circuit on the boat." loading="lazy" width="1280" height="720" /></a>
+          <figcaption>Kill switch chain: both switches break propulsion power directly.
+          <a href="assets/img/usv-kill-switch.jpg">Full size</a>.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/img/usv-rc-block-diagram.jpg"><img class="diagram" src="assets/img/usv-rc-block-diagram.jpg" alt="Block diagram of the radio control path on the boat." loading="lazy" width="1275" height="1650" /></a>
+          <figcaption>The manual control path, drawn to show that it works with the ground
+          station switched off. <a href="assets/img/usv-rc-block-diagram.jpg">Full size</a>.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="autonomy-usv">
+      <h2>How it is driven</h2>
+      <p>The ground station holds the boat in GUIDED and sends position targets, which is
+      what the safe passage and the dock approach are built from. Arming goes through
+      ArduPilot's own prearm checks with a retry, because the GPS prearm failure is the
+      usual blocker on this hull and the retry is what turns a failed launch into a
+      thirty second delay.</p>
+      <p>Leaving autonomy ends scoring for an attempt under rule 5.1, so manual takeover
+      is treated as an abort in the console rather than as a mode change: the run is
+      marked not scoring and the operator sees it in the header.</p>
+      <p>Task 3 adds two things on top of navigation: a dock approach that has to place
+      the hull inside a bay, and a water jet aimed at a 25 cm window. Both are driven from
+      the same task state machine as everything else, with a step per action, so a
+      suspension in the middle of a dock approach resumes at the step it stopped on.</p>
+    </section>
+
+    <section class="section" id="perception-usv">
+      <h2>Perception</h2>
+      <p>The buoy detector is a YOLOv5s model trained on the MHSeals set, at 0.945
+      mAP@0.5 and 0.693 mAP@0.5:0.95 over 27 classes. The colour classes transfer
+      directly to the 2026 light beacons; the shape classes do not, because the 2026
+      buoys carry lights rather than shapes.</p>
+      <p>Camera to lidar fusion from the lab's earlier work sits at about 8 cm of range
+      error with a systematic 8 to 9 cm lateral and vertical bias, which is the figure the
+      passage transit planning is built around.</p>
+    </section>
+
+    <section class="section" id="evidence-usv">
+      <h2>Evidence</h2>
+      <div class="video-block">
+        <video controls preload="none" poster="assets/img/usv-autonomous-run-poster.jpg">
+          <source src="assets/video/usv-autonomous-run.mp4" type="video/mp4" />
+          Your browser cannot play this video. <a href="assets/video/usv-autonomous-run.mp4">Download it instead</a>.
+        </video>
+        <p class="video-meta"><span>Autonomous operations</span><span>21 s</span><span>Proof of readiness 3.1.2</span></p>
+        <p>The boat under autonomous control, with the status light showing the mode it is
+        in. Submitted as part of the surface vehicle readiness package.</p>
+      </div>
+      <p>The full readiness package, including the kill switch drawings and the harness
+      photographs, is listed on the <a href="readiness.html#usv">proof of readiness</a>
+      page.</p>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

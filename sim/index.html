@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RobotX 2026: Marina Bay Course Visualizer</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <header id="topbar">
+    <div class="title">
+      <span class="badge">RobotX 2026</span>
+      Storm Response - Promontory at Marina Bay
+      <span class="sub" id="course-id">course</span>
+    </div>
+    <div class="top-right">
+      <button id="btn-visuals" class="top-btn" title="Picture settings (G)">Visuals</button>
+      <span id="run-state" class="pill pill-idle">PRE-RUN</span>
+      <span id="clock" class="clock">00:00</span>
+    </div>
+  </header>
+
+  <aside id="controls">
+    <div class="panel-head"><span>Mission</span><button class="min-btn" title="Minimize">-</button></div>
+
+    <h2>Capability tier</h2>
+    <div class="seg" id="tier-seg">
+      <button data-tier="CORE">Core</button>
+      <button data-tier="ADVANCED" class="active">Advanced</button>
+      <button data-tier="DISRUPTIVE">Disruptive</button>
+    </div>
+    <p class="desc" id="tier-desc"></p>
+
+    <h2>Run</h2>
+    <div class="seg" id="run-seg">
+      <button id="btn-play">Start</button>
+      <button id="btn-reset">Reset</button>
+    </div>
+
+    <h2>Task 4 injects</h2>
+    <div class="seg vertical" id="t4-seg">
+      <button data-kind="ASSISTANCE_REQUEST">Core: assistance request</button>
+      <button data-kind="KEEPOUT_ZONE">Advanced: keep-out zone</button>
+      <button data-kind="MOVING_OBJECT">Disruptive: moving object</button>
+    </div>
+    <p class="desc dim">RoboCommand issues these mid-run. The active task is checkpointed and resumed afterwards.</p>
+
+    <h2>Camera</h2>
+    <div class="seg" id="cam-seg">
+      <button data-cam="orbit" class="active">Orbit</button>
+      <button data-cam="free">Free</button>
+      <button data-cam="chase">Chase</button>
+      <button data-cam="top">Top</button>
+    </div>
+    <div class="seg" id="follow-seg">
+      <button data-follow="usv" class="active">Chase USV</button>
+      <button data-follow="uuv">UUV</button>
+      <button data-follow="uav">UAV</button>
+    </div>
+    <p class="desc dim" id="cam-desc"></p>
+    <label class="vis-row" id="fly-speed-row">
+      <span class="vis-head"><span>Fly speed</span><b id="fly-speed-val">14</b></span>
+      <input type="range" id="fly-speed" min="1" max="60" step="1" value="14" />
+    </label>
+
+    <h2>Onboard view</h2>
+    <div class="seg" id="pov-seg">
+      <button data-pov="" class="active">Off</button>
+      <button data-pov="usv">USV cam</button>
+      <button data-pov="uav">UAV cam</button>
+      <button data-pov="uuv">UUV cam</button>
+    </div>
+    <label class="chk"><input type="checkbox" id="show-rings" checked /> Vehicle rings</label>
+    <label class="chk"><input type="checkbox" id="show-labels" checked /> Vehicle labels</label>
+
+    <h2>Manual control</h2>
+    <p class="desc" id="manual-desc">Press <b>M</b> to take the USV manual. Leaving autonomy ends scoring for the attempt (handbook 5.1).</p>
+    <div id="manual-state" class="pill pill-auto">All systems autonomous</div>
+
+    <h2>Course</h2>
+    <ul class="facts" id="course-facts"></ul>
+  </aside>
+
+  <aside id="visuals">
+    <div class="panel-head"><span>Visuals</span><button class="min-btn" title="Close">x</button></div>
+    <div id="visuals-body"></div>
+    <p class="desc dim">Settings are kept in this browser, so a display set up on the course stays set up.</p>
+  </aside>
+
+  <aside id="intel">
+    <div class="panel-head"><span>Mission intel</span><button class="min-btn" title="Minimize">-</button></div>
+
+    <div id="live-status" class="pill pill-sim">Simulation</div>
+
+    <h3>Tasks</h3>
+    <ul id="tasks"></ul>
+
+    <h3>Current step</h3>
+    <div id="step" class="step-box">-</div>
+
+    <h3>Vehicles</h3>
+    <table id="vehicles">
+      <thead><tr><th>ID</th><th>State</th><th>Task</th><th>Speed</th><th>Depth/Alt</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>RoboCommand <span class="dim" id="hb-count"></span></h3>
+    <ul id="messages"></ul>
+
+    <h3>Event log</h3>
+    <ul id="log"></ul>
+  </aside>
+
+  <footer id="help">
+    <span id="help-move"><b>W A S D</b> drive manual</span>
+    <span id="help-vert"><b>Q E</b> depth / altitude</span>
+    <span><b>Space</b> start / pause</span>
+    <span><b>M</b> manual takeover</span>
+    <span><b>C</b> camera</span>
+    <span><b>1 2 3</b> chase USV / UUV / UAV</span>
+    <span><b>V</b> onboard view</span>
+    <span><b>G</b> visuals</span>
+    <span><b>5 6 7</b> Task 4 injects</span>
+    <span><b>R</b> reset</span>
+    <span class="legend"><i class="dot usv"></i>BlueBoat</span>
+    <span class="legend"><i class="dot uuv"></i>BlueROV2</span>
+    <span class="legend"><i class="dot uav"></i>UAV</span>
+  </footer>
+
+  <script src="./js/babylon.js"></script>
+  <script src="./js/tex.js"></script>
+  <script src="./js/vehicles.js"></script>
+  <script src="./js/landmarks.js"></script>
+  <script src="./js/underwater.js"></script>
+  <script src="./js/scene.js"></script>
+  <script src="./js/camera.js"></script>
+  <script src="./js/visuals.js"></script>
+  <script src="./js/render.js"></script>
+  <script src="./js/sim.js"></script>
+  <script src="./js/live.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>

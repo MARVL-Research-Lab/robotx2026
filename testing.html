@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Test record | MARVL RobotX 2026</title>
+<meta name="description" content="Software tests, simulated missions and hardware sessions: objectives, results and evidence." />
+<meta property="og:title" content="Test record | MARVL RobotX 2026" />
+<meta property="og:description" content="Software tests, simulated missions and hardware sessions: objectives, results and evidence." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/sim-course.jpg" />
+<meta name="theme-color" content="#04121a" />
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="brand" href="index.html"><b>MARVL</b> <span>Maritime RobotX 2026</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="autonomy.html">Autonomy</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html" aria-current="page">Testing</a></li>
+        <li><a href="readiness.html">Readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+      </ul>
+    </nav>
+    <button class="search-open" type="button" aria-haspopup="dialog">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span><kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</header>
+<dialog class="search-dialog" id="search-dialog" aria-label="Search this site">
+  <form role="search">
+    <label class="skip" for="search-field">Search terms</label>
+    <input id="search-field" type="search" placeholder="Search vehicles, tasks, tests, handbook sections" autocomplete="off" />
+    <button type="button" onclick="this.closest('dialog').close()">Close</button>
+  </form>
+  <ul class="results"></ul>
+</dialog>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+      <h1>Test record</h1>
+      <p class="lede">Three levels of testing, from a suite that
+runs in under a minute to flights and water work with the hardware. This page is the
+record of what has been run, what it was for and what came out of it.</p>
+  </div>
+</div>
+
+<div class="wrap band">
+  <div class="with-index">
+  <nav class="soundings" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#approach">How we test</a></li>
+      <li><a href="#software">Software suite</a></li>
+      <li><a href="#sim-tests">Simulated missions</a></li>
+      <li><a href="#field">Field and water sessions</a></li>
+      <li><a href="#findings">What testing changed</a></li>
+      <li><a href="#planned">Planned</a></li>
+    </ol>
+  </nav>
+
+  <div>
+    <section class="section" id="approach">
+      <h2>How we test</h2>
+      <p>Hardware time is the scarce resource. A pool booking is a morning, a boat session
+      is a day, and the aircraft needs a licensed pilot present. So anything that can be
+      caught without hardware is caught without hardware, and field sessions are spent on
+      the things only water and air can answer.</p>
+      <div class="cols">
+        <div>
+          <h3>Every commit</h3>
+          <p>The automated suite runs in about a minute and covers the mission logic, the
+          protocol and the course model.</p>
+        </div>
+        <div>
+          <h3>Before a hardware session</h3>
+          <p>The same mission is flown against the real firmware over an emulated radio,
+          end to end, with a pass or fail per stage.</p>
+        </div>
+        <div>
+          <h3>On the water and in the air</h3>
+          <p>Autonomy, safety systems and failsafes, recorded start to finish so the
+          footage doubles as readiness evidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="software">
+      <h2>Software suite</h2>
+      <p>154 tests. The last full run took 53 seconds and passed 153, with the one
+      remaining test being the software in the loop round trip, which is opt in because it
+      builds and boots firmware.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Automated tests by area, as of 21 September 2026.</caption>
+          <thead><tr><th scope="col">Area</th><th class="num" scope="col">Tests</th><th scope="col">What it proves</th></tr></thead>
+          <tbody>
+            <tr><td>Readiness rehearsal</td><td class="num">24</td><td>The 3.1 requirement list, the course dimensions and the rehearsal criteria match the handbook</td></tr>
+            <tr><td>Course model</td><td class="num">22</td><td>Course layout, the three live feeds and the browser scene build correctly</td></tr>
+            <tr><td>Suspend and resume</td><td class="num">21</td><td>Task 4 interrupts a task and the task resumes at the step it stopped on</td></tr>
+            <tr><td>RoboCommand protocol</td><td class="num">21</td><td>Envelopes, topics, sequence numbers and the run start handshake, end to end</td></tr>
+            <tr><td>MAVLink adapter</td><td class="num">21</td><td>Message parsing, mode tables per firmware and stream setup</td></tr>
+            <tr><td>State machines</td><td class="num">16</td><td>Every legal and illegal transition in the three machines</td></tr>
+            <tr><td>Software in the loop manager</td><td class="num">11</td><td>Firmware process management, parameters and run directories</td></tr>
+            <tr><td>HaLow link emulator</td><td class="num">8</td><td>Latency, loss, bandwidth cap and outage behaviour</td></tr>
+            <tr><td>Orchestrator</td><td class="num">5</td><td>Startup, dispatch, shutdown</td></tr>
+            <tr><td>Embedded broker</td><td class="num">4</td><td>Retained messages and subscription semantics for offline rehearsal</td></tr>
+            <tr><td>Software in the loop round trip</td><td class="num">1</td><td>Opt in: boot, filter convergence, arm, a 40 m guided transit and an emergency stop</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="sim-tests">
+      <h2>Simulated missions</h2>
+      <p>The validation scenario is the one that stands in for a run. It launches the
+      three firmware builds, drives them with the same ground station that drives the
+      hardware, and asserts 25 stages from a cold start through an interruption to an
+      emergency stop.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>Simulated mission sessions.</caption>
+          <thead><tr><th scope="col">Session</th><th scope="col">Objective</th><th class="num" scope="col">Duration</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Validation scenario, software in the loop</td>
+              <td>Cold start to emergency stop with a Task 4 interruption in the middle, against the real firmware</td>
+              <td class="num">about 5 min per run</td>
+              <td><span class="tag tag-pass">24 of 25</span> on the run of 21 September 2026. The open item is a guided waypoint that timed out on the boat; see below</td>
+            </tr>
+            <tr>
+              <td>Fringe link soak</td>
+              <td>The same mission at 8 percent packet loss with a two second fade every 25 seconds</td>
+              <td class="num">per run</td>
+              <td>Health monitor escalates to an emergency stop on heartbeat loss, as designed. Led to trimming the telemetry streams</td>
+            </tr>
+            <tr>
+              <td>Headless scene check</td>
+              <td>Build the course in a browser engine with no screen, fly the mission, verify message order and camera behaviour</td>
+              <td class="num">seconds</td>
+              <td><span class="tag tag-pass">Pass</span> in the suite whenever Node is installed</td>
+            </tr>
+            <tr>
+              <td>Readiness rehearsals</td>
+              <td>The four handbook 3.1 demonstrations flown on the specified courses and judged criterion by criterion</td>
+              <td class="num">about 30 s each</td>
+              <td>All criteria pass in rehearsal. See <a href="readiness.html">proof of readiness</a></td>
+            </tr>
+            <tr>
+              <td>Communications rehearsal</td>
+              <td>The run start sequence of 3.4.10 against RoboNation's test server</td>
+              <td class="num">1 min 11 s</td>
+              <td><span class="tag tag-pass">Run started</span> with three vehicles declared</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="field">
+      <h2>Field and water sessions</h2>
+      <div class="note note-todo">
+        <h3>Editor note, remove before submission</h3>
+        <p>Fill the date and time columns from the field log. The rows below carry what
+        the recorded evidence shows; the hours in the water and in the air are in the
+        team's own record and should be published here, because the website rubric asks
+        for them by name.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <caption>Hardware sessions and their evidence.</caption>
+          <thead><tr><th scope="col">Session</th><th scope="col">System</th><th scope="col">Objective</th><th scope="col">Result</th><th scope="col">Evidence</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Autonomous operations, August 2026</td>
+              <td>BlueBoat</td>
+              <td>Fully autonomous run with the status light showing the mode throughout</td>
+              <td><span class="tag tag-pass">Pass</span>, submitted for readiness</td>
+              <td><a href="usv.html#evidence-usv">Video, 21 s</a></td>
+            </tr>
+            <tr>
+              <td>Autonomous flights, August 2026</td>
+              <td>Quadrotor</td>
+              <td>Takeoff above 3 m, the published pattern and a landing, flown in Auto</td>
+              <td><span class="tag tag-pass">Pass</span>, three missions recorded</td>
+              <td><a href="uav.html#flight">Video, 1 min 25 s</a></td>
+            </tr>
+            <tr>
+              <td>Manual flights, August 2026</td>
+              <td>Quadrotor</td>
+              <td>The same pattern flown by the pilot, with mode proof on the ground station</td>
+              <td><span class="tag tag-pass">Pass</span>, three missions recorded</td>
+              <td><a href="uav.html#flight">Video, 2 min 15 s</a></td>
+            </tr>
+            <tr>
+              <td>Geofence and ceiling, August 2026</td>
+              <td>Quadrotor</td>
+              <td>Command the aircraft past the fence and above the declared ceiling</td>
+              <td><span class="tag tag-pass">Held</span> at both limits</td>
+              <td><a href="uav.html#flight">Video, 36 s</a></td>
+            </tr>
+            <tr>
+              <td>Link loss failsafe, August 2026</td>
+              <td>Quadrotor</td>
+              <td>Switch the transmitter off in flight and observe the response</td>
+              <td><span class="tag tag-pass">Landed</span> five seconds after the link dropped</td>
+              <td><a href="uav.html#flight">Video, 42 s</a></td>
+            </tr>
+            <tr>
+              <td>Pool buoyancy, August 2026</td>
+              <td>Quadrotor</td>
+              <td>Ditch the aircraft and recover it</td>
+              <td><span class="tag tag-pass">Floats</span> upright and is recoverable by swimmer</td>
+              <td><a href="uav.html#flight">Video, 7 s</a></td>
+            </tr>
+            <tr>
+              <td>Bench motor test</td>
+              <td>Quadrotor</td>
+              <td>Motor order and direction before first flight</td>
+              <td><span class="tag tag-pass">Pass</span></td>
+              <td><a href="uav.html#flight">Video</a></td>
+            </tr>
+            <tr>
+              <td>Communications rehearsal, 31 August 2026</td>
+              <td>Ground station</td>
+              <td>Run the handbook start sequence against RoboNation's test server</td>
+              <td><span class="tag tag-pass">Run 1 started</span>, declaration sequence verified</td>
+              <td><a href="readiness.html#comms">Log and screencast</a></td>
+            </tr>
+            <tr>
+              <td>Pipeline survey in water</td>
+              <td>BlueROV2</td>
+              <td>Depth hold survey along a pipeline mockup with the magnetic probe</td>
+              <td><span class="tag tag-open">Scheduled</span></td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td>Three vehicle integration</td>
+              <td>All</td>
+              <td>One run with all three vehicles autonomous and reporting together</td>
+              <td><span class="tag tag-open">Scheduled</span></td>
+              <td>&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="findings">
+      <h2>What testing changed</h2>
+      <p>Four results that changed the design rather than confirming it.</p>
+      <div class="cols">
+        <div>
+          <h3>The underwater vehicle has no position</h3>
+          <p>ArduSub refuses guided modes without a position estimate. Underwater that
+          never arrives. Depth hold became an autonomous mode for that vehicle, and the
+          survey is flown on heading and time with visual reacquisition.</p>
+        </div>
+        <div>
+          <h3>The default telemetry set floods the radio</h3>
+          <p>Running over the fringe link profile made it obvious. The adapter now asks
+          for position at 4 Hz and status at 1 Hz and re-asks if telemetry stops, which is
+          a few packets per second per vehicle.</p>
+        </div>
+        <div>
+          <h3>Arming is a waiting game</h3>
+          <p>The filter needs 20 to 40 seconds after boot before prearm passes, and the
+          position prearm failure is the usual blocker on the boat. Arming retries for 90
+          seconds instead of failing the run.</p>
+        </div>
+        <div>
+          <h3>Guided waypoints still time out</h3>
+          <p>One check in the validation run fails: a guided waypoint on the boat does not
+          report arrival inside its window, usually after the vehicle has been through an
+          interruption. The mission still completes, so it is an acceptance window and a
+          retry question rather than a navigation failure, and it is the next thing being
+          worked on.</p>
+        </div>
+        <div>
+          <h3>The 2024 detector transfers in part</h3>
+          <p>The trained buoy model holds up on colour classes at 0.945 mAP@0.5, but the
+          shape classes do not transfer, because the 2026 buoys carry light beacons rather
+          than shapes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="planned">
+      <h2>Planned before November</h2>
+      <ul>
+        <li>Pipeline survey in water with the magnetic probe, including a repair hold on a
+        mock light node.</li>
+        <li>Docking approach and the water jet against a built docking bay.</li>
+        <li>Delivery mechanism flights: pick a tin, fly a route, release on a circle.</li>
+        <li>One session with all three vehicles autonomous at the same time, reporting
+        through the ground station to a local broker.</li>
+        <li>Validation scenarios for Tasks 2 and 3 alongside the existing Task 1 run.</li>
+        <li>Close the guided waypoint timeout so the validation run passes 25 of 25.</li>
+      </ul>
+    </section>
+  </div>
+  </div>
+</div>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h2>MARVL, Singapore University of Technology and Design</h2>
+      <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
+      Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
+      a quadrotor, run from one operator console.</p>
+      <ul>
+        <li><a href="team.html#contact">Contact the team</a></li>
+        <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The team</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team and sponsors</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="usv.html">BlueBoat (USV)</a></li>
+        <li><a href="uuv.html">BlueROV2 (UUV)</a></li>
+        <li><a href="uav.html">Quadrotor (UAV)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>The work</h2>
+      <ul>
+        <li><a href="autonomy.html">Ground station</a></li>
+        <li><a href="simulation.html">Simulation</a></li>
+        <li><a href="testing.html">Test record</a></li>
+        <li><a href="readiness.html">Proof of readiness</a></li>
+        <li><a href="log.html">Build log</a></li>
+        <li><a href="sim/">Course simulator</a></li>
+        <li><a href="search.html">Search this site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+  </div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

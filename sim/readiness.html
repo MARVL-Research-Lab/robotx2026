@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RobotX 2026: Proof of Readiness Rehearsal</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body class="por">
+  <canvas id="scene"></canvas>
+
+  <header id="topbar">
+    <div class="title">
+      <span class="badge">RobotX 2026</span>
+      Proof of Readiness rehearsal
+      <span class="sub" id="window-note">handbook 3.1</span>
+    </div>
+    <div class="top-right">
+      <a class="top-btn" href="./index.html" title="The competition course">Mission view</a>
+      <button id="btn-visuals" class="top-btn" title="Picture settings (G)">Visuals</button>
+      <span id="run-state" class="pill pill-idle">READY</span>
+      <span id="clock" class="clock">00:00</span>
+    </div>
+  </header>
+
+  <aside id="controls">
+    <div class="panel-head"><span>Rehearsal</span><button class="min-btn" title="Minimize">-</button></div>
+
+    <h2>Submission</h2>
+    <div class="seg" id="run-seg">
+      <button data-run="USV" class="active">USV</button>
+      <button data-run="UUV">UUV</button>
+      <button data-run="UAV">UAV</button>
+      <button data-run="COMMS">Comms</button>
+    </div>
+    <p class="desc" id="run-desc"></p>
+
+    <div id="variant-row">
+      <h2>UUV course</h2>
+      <div class="seg" id="variant-seg">
+        <button data-variant="standard" class="active">Submerged gate</button>
+        <button data-variant="tethered">Tethered pair</button>
+      </div>
+      <p class="desc dim">The alternate course of 3.1.3: a gate of two buoys about 2 m apart, the USV following the ROV autonomously on the surface.</p>
+    </div>
+
+    <h2>Run</h2>
+    <div class="seg">
+      <button id="btn-play">Start</button>
+      <button id="btn-reset">Reset</button>
+    </div>
+    <div class="step-box" id="step">READY</div>
+    <div class="progress"><i id="progress-bar"></i></div>
+    <ul class="facts" id="hud">
+      <li><span>Vehicle</span><b id="hud-vehicle">-</b></li>
+      <li><span>Mode</span><b id="hud-mode">-</b></li>
+      <li><span>Speed</span><b id="hud-speed">-</b></li>
+      <li><span>Heading</span><b id="hud-heading">-</b></li>
+      <li><span id="hud-vert-label">Altitude</span><b id="hud-vert">-</b></li>
+      <li><span id="hud-clear-label">Nearest buoy</span><b id="hud-clear">-</b></li>
+      <li><span>Next mark</span><b id="hud-range">-</b></li>
+    </ul>
+
+    <h2>Criteria</h2>
+    <ul class="criteria" id="criteria"></ul>
+
+    <h2>Camera</h2>
+    <div class="seg" id="cam-seg">
+      <button data-cam="orbit" class="active">Orbit</button>
+      <button data-cam="free">Free</button>
+      <button data-cam="chase">Chase</button>
+      <button data-cam="top">Top</button>
+    </div>
+    <div class="seg" id="follow-seg">
+      <button data-follow="usv" class="active">Chase USV</button>
+      <button data-follow="uuv">UUV</button>
+      <button data-follow="uav">UAV</button>
+    </div>
+    <div class="seg" id="pov-seg">
+      <button data-pov="" class="active">Onboard off</button>
+      <button data-pov="usv">USV</button>
+      <button data-pov="uav">UAV</button>
+      <button data-pov="uuv">UUV</button>
+    </div>
+    <label class="vis-row" id="fly-speed-row">
+      <span class="vis-head"><span>Fly speed</span><b id="fly-speed-val">14</b></span>
+      <input type="range" id="fly-speed" min="1" max="60" step="1" value="14" />
+    </label>
+
+    <h2>Event log</h2>
+    <ul id="log"></ul>
+  </aside>
+
+  <aside id="visuals">
+    <div class="panel-head"><span>Visuals</span><button class="min-btn" title="Close">x</button></div>
+    <div id="visuals-body"></div>
+  </aside>
+
+  <aside id="intel">
+    <div class="panel-head"><span>Submission checklist</span><button class="min-btn" title="Minimize">-</button></div>
+
+    <div id="por-summary" class="pill pill-sim">0 of 0 accounted for</div>
+
+    <div class="seg" id="filter-seg">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="rehearsable">Rehearsable</button>
+      <button data-filter="artifact">Evidence to make</button>
+      <button data-filter="open">Outstanding</button>
+    </div>
+
+    <div id="requirements"></div>
+
+    <h3>Report</h3>
+    <div class="seg">
+      <button id="btn-report">Download report.md</button>
+      <button id="btn-copy">Copy</button>
+    </div>
+    <p class="desc dim">The report lists every requirement with what the rehearsal proved and what the team still has to produce. Ticks are kept in this browser.</p>
+
+    <h3>Real communications log</h3>
+    <p class="desc dim">3.1.5 wants rc-test logs, not a rehearsal. Produce them with:</p>
+    <div class="step-box">uv run robotx rc-check --broker HOST</div>
+  </aside>
+
+  <footer id="help">
+    <span><b>Space</b> start / pause</span>
+    <span><b>R</b> reset</span>
+    <span><b>1 2 3 4</b> USV / UUV / UAV / Comms</span>
+    <span><b>C</b> camera</span>
+    <span><b>V</b> onboard view</span>
+    <span><b>G</b> visuals</span>
+    <span class="legend"><i class="dot usv"></i>BlueBoat</span>
+    <span class="legend"><i class="dot uuv"></i>BlueROV2</span>
+    <span class="legend"><i class="dot uav"></i>UAV</span>
+  </footer>
+
+  <script src="./js/babylon.js"></script>
+  <script src="./js/tex.js"></script>
+  <script src="./js/vehicles.js"></script>
+  <script src="./js/landmarks.js"></script>
+  <script src="./js/underwater.js"></script>
+  <script src="./js/por.js"></script>
+  <script src="./js/por-viz.js"></script>
+  <script src="./js/scene.js"></script>
+  <script src="./js/camera.js"></script>
+  <script src="./js/visuals.js"></script>
+  <script src="./js/render.js"></script>
+  <script src="./js/por-sim.js"></script>
+  <script src="./js/por-main.js"></script>
+</body>
+</html>
