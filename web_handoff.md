@@ -120,10 +120,6 @@ read by somebody who was there:
 
 ## 6. Known rough edges
 
-- The two `sim/` pages have no favicon link, so a browser requests `/sim/favicon.ico` and
-  gets a 404 in the console. Cosmetic. The fix is one `<link rel="icon">` line in
-  `sim/index.html` and `sim/readiness.html`, plus the same line added to
-  `tools/export-sim.sh` so it survives the next export.
 - `assets/video/uav-manual-flight.mp4` is 17 MB for 2 minutes 15 seconds, the heaviest
   file on the site. It only downloads when a visitor presses play. Re-encoding at a
   higher constant rate factor would roughly halve it.

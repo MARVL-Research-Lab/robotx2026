@@ -39,6 +39,12 @@ sed -i 's|href="/"|href="./index.html"|' "$DST/readiness.html"
 sed -i 's|fetch("/api/course")|fetch("./api/course.json")|' "$DST/js/main.js"
 sed -i 's|fetch("/api/readiness")|fetch("./api/readiness.json")|' "$DST/js/por-main.js"
 
+# The scenes are served from sim/, one level under the site, and carry no icon
+# of their own. Point them at the site's, so a browser stops asking for
+# /sim/favicon.ico and getting a 404.
+find "$DST" -maxdepth 1 -name '*.html' -exec sed -i \
+  's|<link rel="stylesheet" href="./style.css" />|<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />\n  <link rel="stylesheet" href="./style.css" />|' {} +
+
 # The checklist download is rendered server side. Rebuild it in the browser
 # from the same configuration the page already holds.
 python3 - "$DST" <<'PY'
