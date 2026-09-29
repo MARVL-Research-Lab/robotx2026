@@ -25,7 +25,7 @@ marked "open" is content the team has to supply, not engineering work.
 | Link check | `tools/check-links.py` reports 0 problems |
 | Media | 16 videos (53 MB), 41 images (4.2 MB) |
 | Repository size | 66 MB working tree, 126 MB with history |
-| Open content items | 3, each marked in the page with an "Editor note" block |
+| Open content items | 3, listed in section 4 (the in-page "Editor note" blocks were removed) |
 
 Verified on the live site: `/`, `/sim/`, `/sim/readiness.html`, `/sim/api/course.json`,
 `/assets/search-index.json`, video delivery, `/readiness.html`, `/404.html`, and a search
@@ -85,18 +85,16 @@ table if that section needs more weight.
 
 ## 4. Open content items
 
-In priority order. Each one is marked in the page with a visible "Editor note" block that
-has to be deleted once the content is in.
+In priority order. The visible "Editor note" blocks that marked these in the pages have
+been removed, so this list is now the only record of them.
 
-1. **Contact address, `team.html`.** The page currently shows `marvl-robotx@sutd.edu.sg`,
-   which was a placeholder, not a confirmed mailbox. It is the only address on the site.
-2. **Field session hours, `testing.html`.** The hardware table carries objectives, results
+1. **Field session hours, `testing.html`.** The hardware table carries objectives, results
    and evidence but not dates or hours. The rubric asks for time in the field by name
    (water time, air time), so this is worth an hour of somebody's evening.
-3. **Underwater vehicle media, `uuv.html` and `readiness.html`.** No photographs of the
+2. **Underwater vehicle media, `uuv.html` and `readiness.html`.** No photographs of the
    ROV exist in either repository. Both pages currently lean on simulator renders. The
    submitted 3.1.3 run video and the safety photographs should go in.
-4. **Sponsor marks, `assets/img/logo-*.svg`.** Typographic placeholders set in the site's
+3. **Sponsor marks, `assets/img/logo-*.svg`.** Typographic placeholders set in the site's
    own type. Replace with the official files from SUTD, MARVL and Blue Robotics, keeping
    the same filenames and roughly the same aspect.
 
