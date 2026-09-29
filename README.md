@@ -117,8 +117,11 @@ it downloads on every visit to the home page.
 The favicon (`assets/img/favicon.svg`) draws the quadrotor, the BlueBoat and the ROV
 with SMIL animation, which Firefox plays directly. Chromium based browsers draw favicons
 once, so `assets/js/site.js` fetches the same file, strips the animations and cycles
-eight frames as data URIs. After changing the icon, bump the `?v=` query on the link
-tag in every page so cached copies are refreshed.
+eight frames as data URIs. Safari ignores SVG favicons, so every page also links
+`favicon-32.png` and `apple-touch-icon.png`, both rendered from the SVG with Inkscape
+(the touch icon from a copy with square corners, because iOS rounds them itself).
+After changing the icon, re-render both PNGs and bump the `?v=` query on the SVG link
+in every page so cached copies are refreshed.
 
 The team introduction video is a YouTube embed (`WVH9dM473xE`) on `index.html` and
 `team.html`. It starts muted and loops; the reduced motion guard in `assets/js/site.js`

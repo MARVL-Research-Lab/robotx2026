@@ -205,7 +205,7 @@
   // The icon is an SVG with SMIL animation, which Firefox plays as it is.
   // Chromium based browsers draw favicons once, so for them the same file is
   // fetched, its animations stripped, and eight frames set as data URIs.
-  var icon = document.querySelector('link[rel="icon"]');
+  var icon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (icon && !reduced && window.fetch && !/Firefox/.test(navigator.userAgent)) {
     fetch(icon.getAttribute("href")).then(function (r) { return r.text(); }).then(function (svg) {
