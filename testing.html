@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Test record | MARVL RobotX 2026</title>
-<meta name="description" content="Software tests, simulated missions and hardware sessions: objectives, results and evidence." />
+<meta name="description" content="Software tests, simulated missions and hardware sessions, with the objective, result and evidence for each." />
 <meta property="og:title" content="Test record | MARVL RobotX 2026" />
-<meta property="og:description" content="Software tests, simulated missions and hardware sessions: objectives, results and evidence." />
+<meta property="og:description" content="Software tests, simulated missions and hardware sessions, with the objective, result and evidence for each." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/img/sim-course.jpg" />
 <meta name="theme-color" content="#04121a" />
@@ -51,9 +51,9 @@
 <div class="page-head">
   <div class="wrap">
       <h1>Test record</h1>
-      <p class="lede">Three levels of testing, from a suite that
-runs in under a minute to flights and water work with the hardware. This page is the
-record of what has been run, what it was for and what came out of it.</p>
+      <p class="lede">We test at three levels: an automated
+suite, simulated missions against the real firmware, and sessions with the hardware in
+the water and in the air. This page lists what has been run, its objective and its result.</p>
   </div>
 </div>
 
@@ -73,34 +73,35 @@ record of what has been run, what it was for and what came out of it.</p>
 
   <div>
     <section class="section" id="approach">
-      <h2>How we test</h2>
-      <p>Hardware time is the scarce resource. A pool booking is a morning, a boat session
-      is a day, and the aircraft needs a licensed pilot present. So anything that can be
-      caught without hardware is caught without hardware, and field sessions are spent on
-      the things only water and air can answer.</p>
+      <h2>Test levels</h2>
+      <p>Hardware time is limited. A pool booking takes a morning, a boat session takes a
+      day, and the aircraft needs a licensed pilot present. We find as many problems as
+      possible in software and simulation first, and use field sessions for the tests that
+      need water or air.</p>
       <div class="cols">
         <div>
-          <h3>Every commit</h3>
-          <p>The automated suite runs in about a minute and covers the mission logic, the
-          protocol and the course model.</p>
+          <h3>Automated suite, every commit</h3>
+          <p>The suite runs in about a minute and covers the mission logic, the protocol
+          and the course model.</p>
         </div>
         <div>
-          <h3>Before a hardware session</h3>
-          <p>The same mission is flown against the real firmware over an emulated radio,
-          end to end, with a pass or fail per stage.</p>
+          <h3>Simulated mission, before a hardware session</h3>
+          <p>The mission runs end to end against the real firmware over an emulated
+          radio, with a pass or fail per stage.</p>
         </div>
         <div>
-          <h3>On the water and in the air</h3>
-          <p>Autonomy, safety systems and failsafes, recorded start to finish so the
-          footage doubles as readiness evidence.</p>
+          <h3>Hardware sessions</h3>
+          <p>Autonomy, safety systems and failsafes are tested on the water and in the
+          air. Each session is recorded from start to finish, and the footage is used as
+          readiness evidence.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="software">
       <h2>Software suite</h2>
-      <p>154 tests. The last full run took 53 seconds and passed 153, with the one
-      remaining test being the software in the loop round trip, which is opt in because it
+      <p>The suite has 154 tests. The last full run took 53 seconds and passed 153. The
+      remaining test is the software in the loop round trip, which is opt in because it
       builds and boots firmware.</p>
       <div class="table-scroll">
         <table>
@@ -125,9 +126,9 @@ record of what has been run, what it was for and what came out of it.</p>
 
     <section class="section" id="sim-tests">
       <h2>Simulated missions</h2>
-      <p>The validation scenario is the one that stands in for a run. It launches the
-      three firmware builds, drives them with the same ground station that drives the
-      hardware, and asserts 25 stages from a cold start through an interruption to an
+      <p>The validation scenario is our simulated competition run. It launches the three
+      firmware builds, drives them with the same ground station that drives the hardware,
+      and checks 25 stages from a cold start, through a Task 4 interruption, to an
       emergency stop.</p>
       <div class="table-scroll">
         <table>
@@ -260,45 +261,46 @@ record of what has been run, what it was for and what came out of it.</p>
 
     <section class="section" id="findings">
       <h2>What testing changed</h2>
-      <p>Four results that changed the design rather than confirming it.</p>
+      <p>These test results led to design changes.</p>
       <div class="cols">
         <div>
-          <h3>The underwater vehicle has no position</h3>
-          <p>ArduSub refuses guided modes without a position estimate. Underwater that
-          never arrives. Depth hold became an autonomous mode for that vehicle, and the
-          survey is flown on heading and time with visual reacquisition.</p>
+          <h3>Underwater vehicle position</h3>
+          <p>ArduSub does not allow guided modes without a position estimate, and the
+          vehicle has no position estimate underwater. Depth hold is now used as the
+          autonomous mode for that vehicle, and the survey is flown on heading and time
+          with visual reacquisition.</p>
         </div>
         <div>
-          <h3>The default telemetry set floods the radio</h3>
-          <p>Running over the fringe link profile made it obvious. The adapter now asks
-          for position at 4 Hz and status at 1 Hz and re-asks if telemetry stops, which is
-          a few packets per second per vehicle.</p>
+          <h3>Telemetry load on the radio</h3>
+          <p>The default telemetry set overloaded the emulated link under the fringe
+          profile. The adapter now requests position at 4 Hz and status at 1 Hz, and
+          requests again if telemetry stops. This is a few packets per second per
+          vehicle.</p>
         </div>
         <div>
-          <h3>Arming is a waiting game</h3>
+          <h3>Arming delay</h3>
           <p>The filter needs 20 to 40 seconds after boot before prearm passes, and the
-          position prearm failure is the usual blocker on the boat. Arming retries for 90
-          seconds instead of failing the run.</p>
+          position prearm check is the usual failure on the boat. Arming now retries for
+          90 seconds instead of failing the run.</p>
         </div>
         <div>
-          <h3>Guided waypoints still time out</h3>
+          <h3>Guided waypoint timeout</h3>
           <p>One check in the validation run fails: a guided waypoint on the boat does not
           report arrival inside its window, usually after the vehicle has been through an
-          interruption. The mission still completes, so it is an acceptance window and a
-          retry question rather than a navigation failure, and it is the next thing being
-          worked on.</p>
+          interruption. The mission still completes, so the cause is the acceptance window
+          and retry logic, not navigation. This is the next item being worked on.</p>
         </div>
         <div>
-          <h3>The 2024 detector transfers in part</h3>
-          <p>The trained buoy model holds up on colour classes at 0.945 mAP@0.5, but the
-          shape classes do not transfer, because the 2026 buoys carry light beacons rather
-          than shapes.</p>
+          <h3>Reuse of the 2024 detector</h3>
+          <p>The trained buoy model still works for the colour classes at 0.945 mAP@0.5.
+          The shape classes do not transfer, because the 2026 buoys carry light beacons
+          instead of shapes.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="planned">
-      <h2>Planned before November</h2>
+      <h2>Planned tests before November</h2>
       <ul>
         <li>Pipeline survey in water with the magnetic probe, including a repair hold on a
         mock light node.</li>
@@ -307,7 +309,7 @@ record of what has been run, what it was for and what came out of it.</p>
         <li>One session with all three vehicles autonomous at the same time, reporting
         through the ground station to a local broker.</li>
         <li>Validation scenarios for Tasks 2 and 3 alongside the existing Task 1 run.</li>
-        <li>Close the guided waypoint timeout so the validation run passes 25 of 25.</li>
+        <li>Fix the guided waypoint timeout so the validation run passes 25 of 25.</li>
       </ul>
     </section>
   </div>
@@ -320,7 +322,7 @@ record of what has been run, what it was for and what came out of it.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -352,7 +354,7 @@ record of what has been run, what it was for and what came out of it.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

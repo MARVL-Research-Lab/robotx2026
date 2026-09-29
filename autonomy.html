@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The ground station | MARVL RobotX 2026</title>
-<meta name="description" content="One program holds the mission: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
+<meta name="description" content="The ground station software: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
 <meta property="og:title" content="The ground station | MARVL RobotX 2026" />
-<meta property="og:description" content="One program holds the mission: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
+<meta property="og:description" content="The ground station software: state machines, task checkpoints, health monitoring and the RoboCommand protocol link." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/img/sim-course.jpg" />
 <meta name="theme-color" content="#04121a" />
@@ -51,9 +51,9 @@
 <div class="page-head">
   <div class="wrap">
       <h1>The ground station</h1>
-      <p class="lede">One program holds the mission. It
-drives three vehicles over MAVLink, speaks the RoboCommand protocol to the judges, and
-keeps enough state that an interruption costs seconds rather than a run.</p>
+      <p class="lede">The ground station is one program that drives the three vehicles
+over MAVLink, reports to the judges over the RoboCommand protocol, and keeps enough
+state to resume a task after an interruption.</p>
   </div>
 </div>
 
@@ -63,11 +63,11 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
     <h2>On this page</h2>
     <ol>
       <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#machines">Three state machines</a></li>
+      <li><a href="#machines">State machines</a></li>
       <li><a href="#checkpoint">Interrupt and resume</a></li>
       <li><a href="#health">Health and escalation</a></li>
-      <li><a href="#console">The operator console</a></li>
-      <li><a href="#robocommand">The RoboCommand link</a></li>
+      <li><a href="#console">Operator console</a></li>
+      <li><a href="#robocommand">RoboCommand link</a></li>
       <li><a href="#decisions">Design decisions</a></li>
     </ol>
   </nav>
@@ -75,10 +75,10 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
   <div>
     <section class="section" id="architecture">
       <h2>Architecture</h2>
-      <p>Vehicles talk MAVLink. The ground station talks MQTT and protocol buffers to
-      RoboCommand. Between the two sits one orchestrator that owns every piece of mission
-      state, and everything else reads from it: the terminal console, the three
-      dimensional course view, and the protocol client.</p>
+      <p>The vehicles communicate over MAVLink. The ground station communicates with
+      RoboCommand over MQTT with protocol buffer payloads. Between the two is one
+      orchestrator that holds all mission state. The terminal console, the three
+      dimensional course view and the protocol client all read from it.</p>
       <figure>
         <svg viewBox="0 0 980 430" role="img" aria-labelledby="arch-title arch-desc" style="width:100%;height:auto;background:#08202c;border:1px solid #1b4a60">
   <title id="arch-title">Ground station architecture</title>
@@ -158,18 +158,18 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
     </defs>
   </g>
 </svg>
-        <figcaption><b>One orchestrator, several views.</b> Only the RoboCommand client
-        touches the course network, which is what handbook 3.4 requires: vehicles never
-        connect to the judges' broker themselves.</figcaption>
+        <figcaption><b>Ground station architecture.</b> Only the RoboCommand client
+        connects to the course network, as handbook 3.4 requires. The vehicles do not
+        connect to the judges' broker.</figcaption>
       </figure>
-      <p>The adapter interface is the reason this works. A simulated vehicle, a firmware
-      build running software in the loop and a real hull all implement the same adapter,
-      so the mission code above them has never had to know which one it is driving.</p>
+      <p>A simulated vehicle, a firmware build running software in the loop and a real
+      vehicle all implement the same adapter interface, so the mission code does not
+      depend on which one it is driving.</p>
     </section>
 
     <section class="section" id="machines">
-      <h2>Three state machines</h2>
-      <p>State lives in three places, each with one job.</p>
+      <h2>State machines</h2>
+      <p>Mission state is held in three state machines.</p>
       <div class="table-scroll">
         <table>
           <caption>What each machine owns.</caption>
@@ -181,51 +181,50 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
           </tbody>
         </table>
       </div>
-      <p>Each task also carries an ordered list of steps, which is what the console shows
-      as a previous, current and next triple. A step is the smallest thing the mission can
-      be resumed at.</p>
+      <p>Each task also carries an ordered list of steps. The console shows these as a
+      previous, current and next triple. A step is the smallest unit the mission can be
+      resumed at.</p>
     </section>
 
     <section class="section" id="checkpoint">
       <h2>Interrupt and resume</h2>
-      <p>Task 4 is the reason the design looks like this. RoboCommand can interrupt a run
-      at any moment with an assistance request, a keep-out zone or a moving vessel. The
-      vehicle in the affected domain has to acknowledge on the wire, break off whatever it
-      was doing, respond, and then carry on.</p>
+      <p>This design is for Task 4. RoboCommand can interrupt a run at any time with an
+      assistance request, a keep-out zone or a moving vessel. The vehicle in the affected
+      domain has to acknowledge the message, stop its current task, respond to the
+      incident, and then continue.</p>
       <p>When an incident arrives the orchestrator writes a checkpoint: the task, the step
       it reached, the progress through the step list and the score events already earned.
       The vehicle then runs the incident as its own task. When the incident clears, the
-      checkpoint is restored and the vehicle picks up at the step it stopped on rather
-      than at the start of the task.</p>
+      checkpoint is restored and the vehicle continues from the step it stopped on, not
+      from the start of the task.</p>
       <div class="video-block">
         <video controls preload="none" poster="assets/img/sim-task4-poster.jpg">
           <source src="assets/video/sim-task4.mp4" type="video/mp4" />
           Your browser cannot play this video. <a href="assets/video/sim-task4.mp4">Download it instead</a>.
         </video>
         <p class="video-meta"><span>Keep-out zone, Advanced tier</span><span>30 s</span><span>Simulated</span></p>
-        <p>A keep-out zone arrives mid transit. The console acknowledges it, the boat
-        routes around the area, and the safe passage attempt resumes afterwards.</p>
+        <p>A keep-out zone arrives during the transit. The console acknowledges it, the
+        boat routes around the area, and the safe passage attempt resumes afterwards.</p>
       </div>
     </section>
 
     <section class="section" id="health">
       <h2>Health and escalation</h2>
-      <p>A heartbeat monitor watches every vehicle. Missed heartbeats and low battery
-      raise alerts, and sustained heartbeat loss escalates to an emergency stop rather
-      than waiting for an operator who may be looking at the water rather than the
-      screen. Battery thresholds are per vehicle, because a quadrotor at 20 percent is a
-      different problem from a boat at 20 percent.</p>
-      <p>Before any run the console can run a pre-run gate: every vehicle reachable and
+      <p>A heartbeat monitor checks every vehicle. Missed heartbeats and low battery
+      raise alerts. Sustained heartbeat loss escalates to an emergency stop automatically,
+      without waiting for the operator. Battery thresholds are set per vehicle, because
+      20 percent on a quadrotor is more urgent than 20 percent on a boat.</p>
+      <p>Before a run the console can run a pre-run check: every vehicle reachable and
       in a ready state, every battery above its minimum, and all three domains present.
-      It is non-destructive and can be run mid-mission.</p>
+      The check changes nothing and can also be run during a mission.</p>
     </section>
 
     <section class="section" id="console">
-      <h2>The operator console</h2>
-      <p>The console is a terminal application, which is a deliberate choice: it runs over
-      a shell connection from a laptop in a marquee on the promontory, it does not need a
-      browser, and it redraws fine over a slow link. The layout is fixed so that an
-      operator can find the same number in the same place under pressure.</p>
+      <h2>Operator console</h2>
+      <p>The console is a terminal application. It runs over a shell connection from a
+      laptop in the team's tent on the promontory, it does not need a browser, and it redraws correctly over a
+      slow link. The layout is fixed so the operator always finds the same value in the
+      same place.</p>
 <pre><code>+- Header (clock) ------------------------------------------------------------+
 | ROBOTX 2026 | IDLE -&gt; [RUNNING] -&gt; COMPLETE | Tier: ADVANCED | RC: * 04:12   |
 +--- USV ----------------+--- UUV ---------------+--- UAV ---------------------+
@@ -244,17 +243,17 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
 | [WARN] UAV  battery low: 28.1%       | 14:22:00 &lt;- RxCommand run_start      |
 +--------------------------------------+--------------------------------------+
   F1 ESTOP  F2 Abort  F3 Pre-Check  F4 Arm  F5 T4-Core  F6 T4-Adv  F7 T4-Dis</code></pre>
-      <p>The same mission can be opened in a browser at the same time, which is the three
+      <p>The same mission can also be opened in a browser at the same time, in the three
       dimensional view on the <a href="simulation.html">simulation</a> page. The terminal
-      stays the console; the browser is the picture of what it is doing.</p>
+      is the control interface and the browser view is for watching.</p>
     </section>
 
     <section class="section" id="robocommand">
-      <h2>The RoboCommand link</h2>
+      <h2>RoboCommand link</h2>
       <p>Handbook 3.4 defines how teams report to the judges: MQTT over TCP on port 1883,
       protocol buffer payloads from RoboNation's schema release, four topics, and a run
-      start handshake that gates the whole run. Our client implements it, and we have run
-      it against RoboNation's own test server.</p>
+      start handshake that has to complete before the run begins. Our client implements
+      the protocol, and we have tested it against RoboNation's test server.</p>
       <div class="table-scroll">
         <table>
           <caption>The four topics, from handbook 3.4.7.</caption>
@@ -271,37 +270,36 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
       roll, pitch, altitude or depth, current task and vehicle type, with flight phase
       added for the aircraft. Sequence numbers are per vehicle for reports and per team
       for requests, and a response quotes the sequence number of the message it answers.</p>
-      <p>The run start sequence and the log it produced are on the
-      <a href="readiness.html#comms">proof of readiness</a> page, step by step.</p>
+      <p>The run start sequence and the log it produced are described step by step on
+      the <a href="readiness.html#comms">proof of readiness</a> page.</p>
     </section>
 
     <section class="section" id="decisions">
       <h2>Design decisions</h2>
       <div class="cols">
         <div>
-          <h3>Three machines rather than one</h3>
+          <h3>Three state machines instead of one</h3>
           <p>A vehicle can be autonomous while its task is suspended and the mission is in
-          an emergency. Collapsing those into one machine would need a state for every
-          combination.</p>
+          an emergency. A single machine would need a state for every combination.</p>
         </div>
         <div>
           <h3>Checkpoints outside the task machine</h3>
-          <p>A checkpoint has to survive the task machine being reset, because that is
-          what an interruption does to it. Keeping it separate is what makes resume a data
-          restore rather than a replay.</p>
+          <p>An interruption resets the task machine, so the checkpoint has to be stored
+          outside it. Resume then restores the saved data instead of replaying the task.</p>
         </div>
         <div>
           <h3>Depth hold counts as autonomous</h3>
-          <p>Only for the underwater vehicle, which cannot hold a position it does not
-          know. The rest of the fleet has to be in a real guided mode to count.</p>
+          <p>This applies only to the underwater vehicle, which has no position estimate
+          to hold. The other two vehicles have to be in a guided mode to count.</p>
         </div>
         <div>
           <h3>Only the consumed streams are requested</h3>
-          <p>ArduPilot's default stream set would saturate a HaLow link. The adapter asks
-          for position at 4 Hz and status at 1 Hz, and re-asks if telemetry stops.</p>
+          <p>ArduPilot's default stream set would saturate a HaLow link. The adapter
+          requests position at 4 Hz and status at 1 Hz, and requests them again if
+          telemetry stops.</p>
         </div>
       </div>
-      <p style="margin-top:1.6rem">The ground station carries 154 automated tests covering
+      <p style="margin-top:1.6rem">The ground station has 154 automated tests covering
       the state machines, the orchestrator lifecycle, suspend and resume, the protocol
       end to end, the embedded broker, the course layout and the readiness rehearsal. See
       the <a href="testing.html#software">test record</a>.</p>
@@ -316,7 +314,7 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -348,7 +346,7 @@ keeps enough state that an interruption costs seconds rather than a run.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

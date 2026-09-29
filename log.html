@@ -51,8 +51,9 @@
 <div class="page-head">
   <div class="wrap">
       <h1>Build log</h1>
-      <p class="lede">What changed, when, and why. Entries are written
-against the repository history, so the dates are the dates the work landed.</p>
+      <p class="lede">A dated record of the main changes to the
+system. Entries are taken from the repository history, so each date is the date the work
+was committed.</p>
   </div>
 </div>
 
@@ -72,42 +73,42 @@ against the repository history, so the dates are the dates the work landed.</p>
     <article class="log-entry">
       <time datetime="2026-08-31">31 August 2026</time>
       <div>
-        <h2>Readiness packages go in</h2>
+        <h2>Readiness packages submitted</h2>
         <p>The mandatory window closed. Packages for the boat, the ROV, the aircraft and
-    communications were submitted, with the communications evidence produced the same day:
-    a run start sequence against RoboNation's test server, our console on one side and
-    their decoder on the other.</p>
+    communications were submitted. The communications evidence was produced the same day:
+    a run start sequence against RoboNation's test server, recorded with our console on
+    one side of the screen and their decoder on the other.</p>
       </div>
     </article>
     <article class="log-entry">
       <time datetime="2026-08-21">21 August 2026</time>
       <div>
-        <h2>The course, in three dimensions</h2>
-        <p>The Marina Bay course went into the browser: every task element from the build
-    specifications at true scale, five camera modes, and a visual settings panel because
-    the low sun over the bay washes out exactly the part of the water the buoys are in.
-    The readiness rehearsal followed, with the four handbook courses and the 63 item
+        <h2>3D course model</h2>
+        <p>The Marina Bay course was built in the browser, with every task element from the
+    build specifications at true scale, five camera modes, and a visual settings panel,
+    added because the low sun over the bay washes out the part of the water the buoys are
+    in. The readiness rehearsal followed, with the four handbook courses and the 63 item
     checklist.</p>
       </div>
     </article>
     <article class="log-entry">
       <time datetime="2026-07-13">13 July 2026</time>
       <div>
-        <h2>A protocol client and a shore server to test it against</h2>
-        <p>The RoboCommand client and a mock shore server landed together, so the run start
-    handshake could be exercised offline. Telemetry streams were trimmed to the messages
-    the ground station actually consumes, which took the radio load down to a few packets
-    per second per vehicle.</p>
+        <h2>RoboCommand client and mock shore server</h2>
+        <p>The RoboCommand client and a mock shore server were added together, so the run
+    start handshake could be tested offline. Telemetry streams were trimmed to the
+    messages the ground station uses, which reduced the radio load to a few packets per
+    second per vehicle.</p>
       </div>
     </article>
     <article class="log-entry">
       <time datetime="2026-07-12">12 July 2026</time>
       <div>
-        <h2>Real firmware, emulated radio</h2>
-        <p>Software in the loop arrived: ArduRover, ArduSub and Copter running the firmware the
-    vehicles run, behind an emulator for the WiFi HaLow link with latency, jitter, loss,
-    a bandwidth cap and periodic outages. The fringe profile immediately found the
-    telemetry problem above.</p>
+        <h2>Software in the loop and link emulation</h2>
+        <p>Software in the loop was added: ArduRover, ArduSub and Copter running the same
+    firmware as the vehicles, behind an emulator for the WiFi HaLow link with latency,
+    jitter, loss, a bandwidth cap and periodic outages. The fringe profile found the
+    telemetry load problem described in the entry above.</p>
       </div>
     </article>
     <article class="log-entry">
@@ -115,15 +116,15 @@ against the repository history, so the dates are the dates the work landed.</p>
       <div>
         <h2>First mission logic</h2>
         <p>The three state machines, the orchestrator, the health monitor and the terminal
-    console, with simulated vehicles behind them. Enough to fly a mission end to end on a
-    laptop while the hardware was still being specified.</p>
+    console were written, with simulated vehicles behind them. This was enough to run a
+    mission end to end on a laptop while the hardware was still being specified.</p>
       </div>
     </article>
     <div class="note" style="margin-top:2.5rem">
-      <h2>Between now and November</h2>
-      <p>Water time for the pipeline survey, the docking approach and the delivery
-      mechanism, then one session with all three vehicles autonomous at once. The
-      <a href="testing.html#planned">test record</a> lists what is booked.</p>
+      <h2>Planned before November</h2>
+      <p>Water sessions for the pipeline survey, the docking approach and the delivery
+      mechanism, then one session with all three vehicles autonomous at the same time.
+      The <a href="testing.html#planned">test record</a> lists what is planned.</p>
     </div>
   </div>
 </div>
@@ -134,7 +135,7 @@ against the repository history, so the dates are the dates the work landed.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -166,7 +167,7 @@ against the repository history, so the dates are the dates the work landed.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

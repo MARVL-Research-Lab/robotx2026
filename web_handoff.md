@@ -1,6 +1,6 @@
 # Website handoff
 
-State as of 22 September 2026. The site is live at
+State as of 29 September 2026. The site is live at
 <https://marvl-research-lab.github.io/robotx2026/>, served by GitHub Pages from `main`
 at the repository root.
 
@@ -21,7 +21,7 @@ marked "open" is content the team has to supply, not engineering work.
 | Link check | `tools/check-links.py` reports 0 problems |
 | Media | 16 videos (53 MB), 41 images (4.2 MB) |
 | Repository size | 66 MB working tree, 126 MB with history |
-| Open content items | 4, each marked in the page with an "Editor note" block |
+| Open content items | 3, each marked in the page with an "Editor note" block |
 
 Verified on the live site: `/`, `/sim/`, `/sim/readiness.html`, `/sim/api/course.json`,
 `/assets/search-index.json`, video delivery, `/readiness.html`, `/404.html`, and a search
@@ -31,8 +31,8 @@ query returning correct results.
 
 | Page | Carries |
 | --- | --- |
-| `index.html` | Hero with a looping simulator clip, the four tasks, the three vehicles, the console, evidence links, sponsors |
-| `team.html` | Lab and university, team structure, roster scaffold, sponsors, contact |
+| `index.html` | Hero with a looping field footage clip, the team introduction video, the four tasks, the three vehicles, the console, evidence links, sponsors |
+| `team.html` | Lab and university, the team introduction video, the eight groups, the full roster, sponsors, acknowledgements, contact |
 | `vehicles.html` | Comparison table and the reasoning behind the three platform choices |
 | `usv.html` | BlueBoat: platform, safety table against handbook 5.2, driving, perception, the autonomous run video |
 | `uuv.html` | BlueROV2: the no-position design decision, the two command paths, survey and repair, safety, rehearsal video |
@@ -84,19 +84,39 @@ table if that section needs more weight.
 In priority order. Each one is marked in the page with a visible "Editor note" block that
 has to be deleted once the content is in.
 
-1. **Roster, `team.html`.** Eight role cards with "Add name" in place of members. The
-   rubric names a list of team members under the 20 percent team information weight.
-2. **Contact address, `team.html`.** The page currently shows `marvl-robotx@sutd.edu.sg`,
+1. **Contact address, `team.html`.** The page currently shows `marvl-robotx@sutd.edu.sg`,
    which was a placeholder, not a confirmed mailbox. It is the only address on the site.
-3. **Field session hours, `testing.html`.** The hardware table carries objectives, results
+2. **Field session hours, `testing.html`.** The hardware table carries objectives, results
    and evidence but not dates or hours. The rubric asks for time in the field by name
    (water time, air time), so this is worth an hour of somebody's evening.
-4. **Underwater vehicle media, `uuv.html` and `readiness.html`.** No photographs of the
+3. **Underwater vehicle media, `uuv.html` and `readiness.html`.** No photographs of the
    ROV exist in either repository. Both pages currently lean on simulator renders. The
    submitted 3.1.3 run video and the safety photographs should go in.
-5. **Sponsor marks, `assets/img/logo-*.svg`.** Typographic placeholders set in the site's
+4. **Sponsor marks, `assets/img/logo-*.svg`.** Typographic placeholders set in the site's
    own type. Replace with the official files from SUTD, MARVL and Blue Robotics, keeping
    the same filenames and roughly the same aspect.
+
+### Done on 29 September 2026
+
+- Hero video is now real field footage (`assets/video/hero-field-loop.mp4`, recipe in
+  `README.md`), as the advisor asked, after the design of <https://www.marvl.ai/robotx>.
+  The simulator clip `hero-loop.mp4` is still in the repository and unused.
+- Team introduction video <https://youtu.be/WVH9dM473xE> embedded on `index.html` and
+  `team.html`, muted autoplay, looping.
+- Roster filled in from the list of 29 September: advisor, two leads, eight groups and
+  four members not yet assigned. Spelling to confirm: the lead was given as
+  "A Praveen Manicka" and the planning list as "Praveen Amanicka"; the site uses
+  "A. Praveen Manicka" in both places.
+- Acknowledgements section added to `team.html`: Prof. Foong Shaohui (MRS Lab), SOAR,
+  UWU, RoboNation. The one line descriptions are deliberately neutral because nobody
+  has said what each contributed; sharpen them if the team wants to.
+- Plain-language pass over all 13 pages on the team's instruction: the hero title is now
+  "Team MARVL (RobotX 2026)", headings are plain nouns, and sentences written for effect
+  (contrasts, "rather than" reframes, set-up lines) were rewritten as statements. Keep new
+  text in that register.
+- Every "Pixhawk" on the site replaced with ArduPilot wording (Rover, Sub, Copter), on
+  the team's instruction. The technical design report in `../robotx/tdr/` still names
+  a Pixhawk 6C mini in three places.
 
 ## 5. Claims on the site that a person should confirm
 
@@ -156,9 +176,6 @@ are referenced honestly on `testing.html`:
 
 ## 9. If there is time after the content is in
 
-- A team introduction video is a separate 120 point deliverable with the same deadline. If
-  one gets made, `index.html` and `team.html` both have an obvious place for it, and
-  hosting it on the site satisfies the hosting rule in 2.3.
 - The technical design report, once submitted, could be linked from `readiness.html` or
   the footer as a PDF.
 - A short caption pass over the simulator clips, naming what a judge is looking at second

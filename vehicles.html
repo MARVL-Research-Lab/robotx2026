@@ -51,9 +51,9 @@
 <div class="page-head">
   <div class="wrap">
       <h1>Vehicles</h1>
-      <p class="lede">Three platforms, one in each domain, chosen so
-that the hard problems sit in autonomy rather than in fabrication. Two are Blue Robotics
-hulls. The aircraft is built in the lab.</p>
+      <p class="lede">Three platforms, one in each domain. Two are Blue Robotics
+hulls and the aircraft is built in the lab. The choice keeps most of the work in
+autonomy and not in fabrication.</p>
   </div>
 </div>
 
@@ -61,12 +61,12 @@ hulls. The aircraft is built in the lab.</p>
   <h2>Side by side</h2>
   <div class="table-scroll">
     <table>
-      <caption>Platform summary. Limits in the last row are the handbook's, not ours.</caption>
+      <caption>Platform summary. The last row gives the handbook limits.</caption>
       <thead>
         <tr><th scope="col">&nbsp;</th><th scope="col">BlueBoat (USV)</th><th scope="col">BlueROV2 (UUV)</th><th scope="col">Quadrotor (UAV)</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">Autopilot</th><td>ArduRover, Pixhawk</td><td>ArduSub, Pixhawk</td><td>ArduPilot Copter, Pixhawk 6C mini</td></tr>
+        <tr><th scope="row">Autopilot</th><td>ArduPilot Rover</td><td>ArduPilot Sub</td><td>ArduPilot Copter</td></tr>
         <tr><th scope="row">Companion</th><td>Onboard computer on the boat</td><td>Raspberry Pi running BlueOS</td><td>Laptop ground station on telemetry</td></tr>
         <tr><th scope="row">Size</th><td class="num">1.2 m catamaran</td><td class="num">0.46 m frame</td><td class="num">98 x 89 x 29 cm, 129 cm diagonal</td></tr>
         <tr><th scope="row">Mass</th><td>Within the 60 kg limit</td><td>Within the 60 kg limit</td><td class="num">6.8 kg in delivery configuration</td></tr>
@@ -81,23 +81,23 @@ hulls. The aircraft is built in the lab.</p>
   <h2 style="margin-top:3rem">Why these three</h2>
   <div class="cols">
     <div>
-      <h3>Commercial hulls where they are solved</h3>
-      <p>The BlueBoat and BlueROV2 are known quantities with ArduPilot firmware, spares
-      and a service history. Building our own would have spent the season on watertight
-      enclosures instead of on cross-domain autonomy, which is what the 2026 rules
-      reward.</p>
+      <h3>Commercial surface and underwater hulls</h3>
+      <p>The BlueBoat and BlueROV2 are proven platforms with ArduPilot firmware, spares
+      and a service history. Building our own hulls would have taken most of the season
+      on watertight enclosures. The 2026 rules reward autonomy across the three domains,
+      so that is where the time goes.</p>
     </div>
     <div>
-      <h3>A custom aircraft where it matters</h3>
-      <p>Nothing off the shelf carries a delivery mechanism, floats after a ditching and
-      stays under 7 kg. The 22 inch airframe is built in the lab so the payload mount,
-      the flotation and the battery layout are ours to change.</p>
+      <h3>A custom aircraft</h3>
+      <p>No off the shelf aircraft carries a delivery mechanism, floats after a ditching
+      and stays under 7 kg. The 22 inch airframe is built in the lab so the payload
+      mount, the flotation and the battery layout can be changed as needed.</p>
     </div>
     <div>
-      <h3>One interface behind all three</h3>
-      <p>Every vehicle speaks MAVLink to the same adapter. Swapping a simulated vehicle
-      for a firmware build or a real hull is a line in a configuration file, which is how
-      the same mission code has been exercised since before the hardware arrived.</p>
+      <h3>One interface for all three</h3>
+      <p>Every vehicle talks MAVLink to the same adapter. Swapping a simulated vehicle
+      for a firmware build or a real hull is a line in a configuration file. The same
+      mission code has been running since before the hardware arrived.</p>
     </div>
   </div>
 
@@ -114,7 +114,7 @@ hulls. The aircraft is built in the lab.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -146,7 +146,7 @@ hulls. The aircraft is built in the lab.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

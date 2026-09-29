@@ -196,5 +196,8 @@
       video.removeAttribute("autoplay");
       video.pause();
     });
+    document.querySelectorAll("iframe[data-autoplay]").forEach(function (frame) {
+      frame.src = frame.src.replace("autoplay=1", "autoplay=0");
+    });
   }
 })();

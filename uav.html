@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The quadrotor | MARVL RobotX 2026</title>
-<meta name="description" content="A lab-built 22 inch quadrotor: airframe, power, failsafes, delivery payload and flight evidence." />
+<title>Quadrotor (UAV) | MARVL RobotX 2026</title>
+<meta name="description" content="The 22 inch quadrotor built in the lab: airframe, power and endurance, control links, failsafe behaviour, delivery payload and flight test videos." />
 <meta property="og:title" content="The quadrotor | MARVL RobotX 2026" />
-<meta property="og:description" content="A lab-built 22 inch quadrotor: airframe, power, failsafes, delivery payload and flight evidence." />
+<meta property="og:description" content="The 22 inch quadrotor built in the lab: airframe, power and endurance, control links, failsafe behaviour, delivery payload and flight test videos." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/img/sim-course.jpg" />
 <meta name="theme-color" content="#04121a" />
@@ -52,9 +52,9 @@
   <div class="wrap">
       <p class="crumb"><a href="vehicles.html">Vehicles</a> / Quadrotor</p>
       <h1>22 inch quadrotor</h1>
-      <p class="lede">Built in the lab around a Pixhawk 6C mini. It reads the buoy field from above, relays
-the route to the boat, and carries resource tins to the delivery platforms. It also has
-to float, because part of the course is water.</p>
+      <p class="lede">The aerial vehicle, a quadrotor built in the lab on ArduPilot Copter. It maps the
+buoy field from above, relays the route to the boat, and carries resource tins to the
+delivery platforms. It is fitted with flotation because the course is over water.</p>
   </div>
 </div>
 
@@ -75,17 +75,18 @@ to float, because part of the course is water.</p>
   <div>
     <section class="section" id="airframe">
       <h2>Airframe</h2>
-      <p>A custom 22 inch quadrotor. Carbon arms and plate, 22.4 by 8 inch two blade
-      propellers, and foam flotation strapped along the arms and the body so the aircraft
-      stays upright and recoverable after a ditching. Two configurations are declared:
-      the base aircraft, and the base aircraft with the tin grabbing assembly fitted.</p>
+      <p>The airframe is a custom 22 inch quadrotor with carbon arms and plate, 22.4 by 8
+      inch two blade propellers, and foam flotation strapped along the arms and the body.
+      The flotation keeps the aircraft upright and recoverable after a ditching. Two
+      configurations are declared: the base aircraft, and the base aircraft with the tin
+      grabbing assembly fitted.</p>
       <ul class="readout">
         <li><span>Type</span><b>Custom quadrotor, multirotor</b></li>
         <li><span>Dimensions</span><b>98 x 89 x 29 cm, 129 cm diagonal</b></li>
         <li><span>Empty mass</span><b>6.6 kg</b></li>
         <li><span>Operating mass</span><b>6.8 kg with the delivery assembly</b></li>
         <li><span>Propellers</span><b>22.4 x 8 in, two blade, polymer and carbon</b></li>
-        <li><span>Flight controller</span><b>Pixhawk 6C mini, ArduPilot</b></li>
+        <li><span>Flight controller</span><b>ArduPilot Copter</b></li>
         <li><span>Launch and recovery</span><b>Vertical from the pontoon, water ditching if needed</b></li>
       </ul>
       <div class="media-grid">
@@ -118,11 +119,11 @@ to float, because part of the course is water.</p>
     <section class="section" id="control-uav">
       <h2>Control and telemetry</h2>
       <p>The manual link is a RadioMaster transmitter with a built in ExpressLRS module,
-      paired to a receiver on the aircraft. It is independent of the ground station: the
-      pilot can take off, fly and land with the laptop switched off. The ground station
-      runs Mission Planner for monitoring, mission upload and autonomous mission
-      management, and the operator console reports the aircraft to RoboCommand at 2 Hz
-      along with the other two vehicles.</p>
+      paired to a receiver on the aircraft. It is independent of the ground station, so
+      the pilot can take off, fly and land with the laptop switched off. The ground
+      station runs Mission Planner for monitoring, mission upload and autonomous mission
+      management. The operator console reports the aircraft to RoboCommand at 2 Hz, the
+      same as the other two vehicles.</p>
       <ul class="readout">
         <li><span>Manual link</span><b>ExpressLRS 2.4 GHz, frequency hopping</b></li>
         <li><span>Transmit power</span><b>50 mW setting, about 0.08 W EIRP</b></li>
@@ -131,10 +132,10 @@ to float, because part of the course is water.</p>
         <li><span>Declared ceiling</span><b>50 m above mean sea level</b></li>
         <li><span>Geofence</span><b>Polygon with a 4 m internal buffer</b></li>
       </ul>
-      <p>Aircraft telemetry is also relayed for Singapore's network remote identification
-      requirements, so the heartbeat has to carry a complete field set every time. That is
-      one of the reasons the RoboCommand client fills flight phase, altitude and heading
-      on every report rather than only when they change.</p>
+      <p>Aircraft telemetry is also relayed to meet Singapore's network remote
+      identification requirements, so every heartbeat has to carry the complete field
+      set. This is one reason the RoboCommand client fills in flight phase, altitude and
+      heading on every report, not only when they change.</p>
       <figure>
         <img src="assets/img/uav-controller.jpg" alt="The dedicated RadioMaster transmitter used for the aircraft." loading="lazy" width="1280" height="960" />
         <figcaption>The dedicated transmitter, assigned to this aircraft and the nominated pilot.</figcaption>
@@ -145,7 +146,7 @@ to float, because part of the course is water.</p>
       <h2>Failsafe behaviour</h2>
       <div class="table-scroll">
         <table>
-          <caption>What the aircraft does without being asked.</caption>
+          <caption>Failsafe triggers and responses.</caption>
           <thead><tr><th scope="col">Trigger</th><th scope="col">Detection</th><th scope="col">Response</th></tr></thead>
           <tbody>
             <tr><td>Manual link loss</td><td class="num">5 s without valid input</td><td>Land: controlled descent at the current position, disarm on touchdown</td></tr>
@@ -157,30 +158,30 @@ to float, because part of the course is water.</p>
           </tbody>
         </table>
       </div>
-      <p>The emergency stop on the transmitter cuts the motors immediately and works on
-      the ground and in the air. Used in flight it produces an uncontrolled descent, so it
-      is reserved for the case where continued flight is the greater hazard.</p>
+      <p>The emergency stop on the transmitter cuts the motors immediately, on the ground
+      and in the air. In flight it causes an uncontrolled descent, so it is used only when
+      continued flight is the greater hazard.</p>
       <figure>
         <img src="assets/img/uav-safe-handling.jpg" alt="Photograph of the aircraft with the safe handling areas marked." loading="lazy" width="1280" height="960" />
-        <figcaption>Marked handling areas, so the aircraft is only ever picked up where it is safe to.</figcaption>
+        <figcaption>Marked handling areas. The aircraft is picked up only at these points.</figcaption>
       </figure>
     </section>
 
     <section class="section" id="payload">
       <h2>Delivery payload</h2>
-      <p>Tasks 2 and 3 both end with a tin on a coloured circle. The delivery assembly is
-      a removable tin grabbing mechanism of about 0.20 kg on an underside mount, powered
-      from the main battery. The mount is drilled and the aircraft flies with it fitted;
-      the grabber itself is the part still being finished.</p>
+      <p>Tasks 2 and 3 both end with a tin placed on a coloured circle. The delivery
+      assembly is a removable tin grabbing mechanism of about 0.20 kg on an underside
+      mount, powered from the main battery. The mount is drilled and the aircraft flies
+      with it fitted. The grabber itself is still being finished.</p>
       <p>The delivery tins are aluminium cans of 40 to 50 g coated in red, green or blue.
       The platforms are 2 m squares with 60 to 70 cm circles in the handbook's specified
-      colours, which is what the simulator draws and what the perception work targets.</p>
+      colours. The simulator draws these, and the perception work is trained on them.</p>
     </section>
 
     <section class="section" id="flight">
       <h2>Flight evidence</h2>
       <p>These are the flights submitted for the aerial proof of readiness. Each one runs
-      start to finish with no cuts, which is what section 3.1.1 asks for.</p>
+      start to finish with no cuts, as section 3.1.1 requires.</p>
 
       <div class="video-block">
         <video controls preload="none" poster="assets/img/uav-autonomous-flight-poster.jpg">
@@ -209,7 +210,7 @@ to float, because part of the course is water.</p>
             Your browser cannot play this video.
           </video>
           <p class="video-meta"><span>Geofence hold</span><span>36 s</span></p>
-          <p>Commanded past the boundary, the aircraft brakes and holds at the fence.</p>
+          <p>The aircraft is commanded past the boundary. It brakes and holds at the fence.</p>
         </div>
         <div class="video-block">
           <video controls preload="none" poster="assets/img/uav-link-loss-poster.jpg">
@@ -217,8 +218,8 @@ to float, because part of the course is water.</p>
             Your browser cannot play this video.
           </video>
           <p class="video-meta"><span>Link loss</span><span>42 s</span></p>
-          <p>The transmitter is switched off in flight. Five seconds later the aircraft
-          lands itself.</p>
+          <p>The transmitter is switched off in flight. After five seconds the aircraft
+          lands automatically.</p>
         </div>
         <div class="video-block">
           <video controls preload="none" poster="assets/img/uav-buoyancy-poster.jpg">
@@ -226,7 +227,7 @@ to float, because part of the course is water.</p>
             Your browser cannot play this video.
           </video>
           <p class="video-meta"><span>Positive buoyancy</span><span>7 s</span></p>
-          <p>In the pool, floating upright on its foam.</p>
+          <p>The aircraft in the pool, floating upright on its foam.</p>
         </div>
         <div class="video-block">
           <video controls preload="none" poster="assets/img/uav-motor-test-poster.jpg">
@@ -248,7 +249,7 @@ to float, because part of the course is water.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -280,7 +281,7 @@ to float, because part of the course is water.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

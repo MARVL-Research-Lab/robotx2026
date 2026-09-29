@@ -83,6 +83,17 @@ ffmpeg -ss 1 -i assets/video/name.mp4 -frames:v 1 -vf scale=960:-2 -q:v 4 \
   assets/img/name-poster.jpg
 ```
 
+The hero on the home page plays `assets/video/hero-field-loop.mp4`, a 33 second muted
+loop cut from the field footage: the BlueBoat pool run (`USV/Autonomous_Operations.mp4`,
+5 to 17 s, cropped to the pool), then two flights from `UAV/UAV_System_Video.mp4` (380 to
+392 s and 427 to 438 s), joined with one second crossfades and encoded at CRF 30 with no
+audio. Recut it the same way if better footage arrives; keep it under about 3 MB, because
+it downloads on every visit to the home page.
+
+The team introduction video is a YouTube embed (`WVH9dM473xE`) on `index.html` and
+`team.html`. It starts muted and loops; the reduced motion guard in `assets/js/site.js`
+turns the autoplay off for visitors who ask for less motion.
+
 ## Deployment
 
 GitHub Pages, from the default branch at the repository root. In the repository settings,

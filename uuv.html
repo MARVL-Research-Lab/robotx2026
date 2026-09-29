@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BlueROV2, the underwater vehicle | MARVL RobotX 2026</title>
-<meta name="description" content="The BlueROV2: depth hold autonomy without a position source, pipeline survey and magnetic repair." />
+<title>BlueROV2 (UUV) | MARVL RobotX 2026</title>
+<meta name="description" content="The BlueROV2: platform, depth hold autonomy without a position source, control interface, pipeline survey and repair, and safety systems." />
 <meta property="og:title" content="BlueROV2, the underwater vehicle | MARVL RobotX 2026" />
-<meta property="og:description" content="The BlueROV2: depth hold autonomy without a position source, pipeline survey and magnetic repair." />
+<meta property="og:description" content="The BlueROV2: platform, depth hold autonomy without a position source, control interface, pipeline survey and repair, and safety systems." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/img/sim-course.jpg" />
 <meta name="theme-color" content="#04121a" />
@@ -52,9 +52,9 @@
   <div class="wrap">
       <p class="crumb"><a href="vehicles.html">Vehicles</a> / BlueROV2</p>
       <h1>BlueROV2</h1>
-      <p class="lede">The underwater vehicle surveys the pipeline and repairs it. It is also the vehicle
-that forced the most interesting design decision of the season, because it has no idea
-where it is.</p>
+      <p class="lede">The underwater vehicle. It surveys the pipeline in Task 2 and repairs the damaged
+node with a magnetic probe. It has no position source underwater, which shaped how it
+is controlled.</p>
   </div>
 </div>
 
@@ -75,14 +75,14 @@ where it is.</p>
   <div>
     <section class="section" id="build-uuv">
       <h2>The platform</h2>
-      <p>A BlueROV2 in the heavy configuration: six thrusters, an ArduSub autopilot on a
-      Pixhawk, and a Raspberry Pi running BlueOS that carries video and MAVLink up the
-      tether. Autonomy talks to it on one UDP endpoint while a pilot keeps
-      QGroundControl on another, so a human can take the vehicle at any moment without
-      the autonomy stack being torn down.</p>
+      <p>The vehicle is a BlueROV2 in the heavy configuration, with six thrusters, an
+      ArduPilot Sub autopilot, and a Raspberry Pi running BlueOS that carries video and
+      MAVLink up the tether. The autonomy stack connects on one UDP endpoint and a pilot
+      keeps QGroundControl on another, so the pilot can take over at any time without
+      stopping the autonomy stack.</p>
       <ul class="readout">
         <li><span>Frame</span><b>BlueROV2, 0.46 m, six thrusters</b></li>
-        <li><span>Autopilot</span><b>ArduSub on Pixhawk</b></li>
+        <li><span>Autopilot</span><b>ArduPilot Sub</b></li>
         <li><span>Companion</span><b>Raspberry Pi, BlueOS at 192.168.2.2</b></li>
         <li><span>Autonomy endpoint</span><b>udpin 14551</b></li>
         <li><span>Pilot endpoint</span><b>udpin 14550, QGroundControl</b></li>
@@ -92,28 +92,28 @@ where it is.</p>
 
     <section class="section" id="position">
       <h2>No position underwater</h2>
-      <p>ArduSub refuses GUIDED and POSHOLD with "requires position" whenever the filter
-      has no position estimate. In software in the loop that clears about a minute after
+      <p>ArduSub rejects GUIDED and POSHOLD with "requires position" whenever the filter
+      has no position estimate. In software in the loop this clears about a minute after
       boot, once the filter starts using GPS. On the real vehicle underwater it never
-      clears, because a BlueROV2 without a Doppler log or an acoustic positioning system
-      has no absolute position source at all.</p>
-      <p>Rather than add hardware the budget does not have, the ground station treats
-      depth hold as an autonomous mode for this vehicle only. The adapter asks for GUIDED
+      clears, because a BlueROV2 without a Doppler velocity log or an acoustic
+      positioning system has no absolute position source.</p>
+      <p>Adding either sensor was outside the budget, so the ground station treats depth
+      hold as an autonomous mode for this vehicle only. The adapter requests GUIDED
       first, falls back to depth hold when arming, and drives the vehicle with body frame
-      velocity commands. Depth is closed by the autopilot, which is the one axis it can
-      hold well without position.</p>
+      velocity commands. The autopilot closes the depth loop, which is the one axis it
+      can hold without a position estimate.</p>
       <div class="note">
-        <h3>What this costs and what it buys</h3>
-        <p>The cost is that the survey is flown on heading and time rather than on
-        waypoints, so the pipeline has to be reacquired visually rather than assumed.
-        What it buys is a vehicle that is autonomous in the water on day one, with no
-        dependency on a sensor that may not arrive.</p>
+        <h3>Consequences</h3>
+        <p>The survey is flown on heading and time instead of on waypoints, so the
+        pipeline has to be found again by camera after each turn. In return the vehicle
+        can run autonomously with the hardware it has now, and does not depend on a
+        sensor that may not arrive before the event.</p>
       </div>
     </section>
 
     <section class="section" id="control">
       <h2>Control interface</h2>
-      <p>Two ways into the vehicle, both through the same adapter.</p>
+      <p>The adapter sends two kinds of command to the vehicle.</p>
       <div class="table-scroll">
         <table>
           <caption>The two command paths and when each is used.</caption>
@@ -124,17 +124,17 @@ where it is.</p>
           </tbody>
         </table>
       </div>
-      <p>Channels left unnamed in an override keep the pilot's stick values instead of
-      being zeroed, which is what makes a hands-on-the-controller takeover work rather
-      than fight the autonomy.</p>
+      <p>Channels not named in an override keep the pilot's stick values instead of being
+      zeroed. This lets the pilot take over on the controller without the autonomy
+      commands working against them.</p>
     </section>
 
     <section class="section" id="survey">
       <h2>Pipeline survey and repair</h2>
-      <p>Task 2 starts at the buoy with the green indicator, which is the one with the
-      active pinger below it. The vehicle descends, finds the pipeline, and reports each
-      of the five segments as intact or damaged from that end. The damaged segment shows
-      a red light ring with a magnetic switch at its centre; holding the probe there
+      <p>Task 2 starts at the buoy with the green indicator, which has the active pinger
+      below it. The vehicle descends, finds the pipeline, and reports each of the five
+      segments as intact or damaged, working from that end. The damaged segment has a red
+      light ring with a magnetic switch at its centre. Holding the probe on the switch
       turns the light green.</p>
       <p>At Advanced the repaired node then flashes a colour for thirty seconds to name
       the resource it needs. The vehicle sends that request to the aircraft and reports
@@ -143,17 +143,17 @@ where it is.</p>
       both.</p>
       <figure>
         <img src="assets/img/sim-chase-uuv.jpg" alt="Simulator view behind the ROV underwater, lamps lighting the seabed, tether rising to the boat." loading="lazy" width="1280" height="650" />
-        <figcaption><b>Rehearsing the survey.</b> The chase camera holds below the surface
-        while the vehicle is under, because Marina Bay is a working harbour and a camera
-        above the water sees nothing.</figcaption>
+        <figcaption><b>Survey rehearsal in the simulator.</b> The chase camera stays below
+        the surface while the vehicle is submerged, since a camera above the water would
+        not see it.</figcaption>
       </figure>
     </section>
 
     <section class="section" id="safety-uuv">
       <h2>Safety systems</h2>
       <ul>
-        <li>Onboard kill switch, with the vehicle positively buoyant when killed so it
-        surfaces rather than sinks.</li>
+        <li>Onboard kill switch. The vehicle is positively buoyant when killed, so it
+        surfaces.</li>
         <li>Status light readable at about 80 m while surfaced, showing kill, manual and
         autonomous.</li>
         <li>Marked tow and lift points with a harness.</li>
@@ -163,9 +163,9 @@ where it is.</p>
         <li>Tether to the boat kept positively buoyant, under 6 m, and strong enough to
         recover the vehicle by pulling on it.</li>
       </ul>
-      <p>Nothing attached to the vehicle is allowed to float on the surface during a
-      scoring run, and the vehicle must not breach, which is why depth hold is armed
-      before the run rather than after the first transit.</p>
+      <p>During a scoring run nothing attached to the vehicle may float on the surface,
+      and the vehicle must not breach. For this reason depth hold is armed before the run
+      starts, not after the first transit.</p>
     </section>
 
     <section class="section" id="evidence-uuv">
@@ -176,10 +176,11 @@ where it is.</p>
           Your browser cannot play this video. <a href="assets/video/sim-por-uuv.mp4">Download it instead</a>.
         </video>
         <p class="video-meta"><span>Readiness rehearsal, handbook 3.1.3</span><span>35 s</span><span>Simulated</span></p>
-        <p>The 3.1.3 course flown in our simulator: start 3 m behind the gate, submerge,
-        pass under the 2 m gate inside its width, circle the marker 10 m beyond it and
-        return, with depth and clearance judged live against the handbook criteria. The
-        vehicle stays below 0.3 m of the surface throughout.</p>
+        <p>The 3.1.3 course run in our simulator. The vehicle starts 3 m behind the gate,
+        submerges, passes under the 2 m gate inside its width, circles the marker 10 m
+        beyond it and returns. Depth and clearance are checked against the handbook
+        criteria as it runs. The vehicle stays more than 0.3 m below the surface
+        throughout.</p>
       </div>
       <div class="note note-todo">
         <h3>Editor note, remove before submission</h3>
@@ -198,7 +199,7 @@ where it is.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -230,7 +231,7 @@ where it is.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>

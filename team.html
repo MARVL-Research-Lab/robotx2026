@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The team | MARVL RobotX 2026</title>
-<meta name="description" content="Who we are, how the team is organised, and the sponsors behind the 2026 entry." />
+<meta name="description" content="Who we are, the team introduction video, the members of every group, and the sponsors and acknowledgements behind the 2026 entry." />
 <meta property="og:title" content="The team | MARVL RobotX 2026" />
-<meta property="og:description" content="Who we are, how the team is organised, and the sponsors behind the 2026 entry." />
+<meta property="og:description" content="Who we are, the team introduction video, the members of every group, and the sponsors and acknowledgements behind the 2026 entry." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/img/sim-course.jpg" />
 <meta name="theme-color" content="#04121a" />
@@ -53,8 +53,8 @@
       <h1>The team</h1>
       <p class="lede">MARVL is the Multi-Agent Robotics Vision and
 Learning Lab at the Singapore University of Technology and Design. RobotX 2026 is a
-lab-wide project across software, three vehicle builds and the safety case behind
-them.</p>
+lab-wide project covering the software, three vehicle builds and the safety
+documentation.</p>
   </div>
 </div>
 
@@ -67,6 +67,7 @@ them.</p>
       <li><a href="#structure">How the team is organised</a></li>
       <li><a href="#roster">Members</a></li>
       <li><a href="#sponsors">Sponsors and support</a></li>
+      <li><a href="#acknowledgements">Acknowledgements</a></li>
       <li><a href="#contact">Contact</a></li>
     </ol>
   </nav>
@@ -76,95 +77,185 @@ them.</p>
       <h2>Who we are</h2>
       <p>MARVL works on mobile robotics, multi-robot coordination, planning and
       scheduling, computer vision and machine learning, with field robotics on marine,
-      ground and aerial platforms. The lab has run surface and underwater vehicles in
-      Singapore waters for several years, and RobotX 2026 is the first time all three
-      domains are flown together as one system.</p>
+      ground and aerial platforms. The lab has operated surface and underwater vehicles
+      in Singapore waters for several years. RobotX 2026 is the first time the lab has
+      run all three domains together as one system.</p>
       <p>The competition entry is a student team under the RoboNation eligibility rules:
       at least three quarters of the members are full-time students, and students do the
       engineering. Staff and alumni advise.</p>
+      <div class="video-embed">
+        <iframe src="https://www.youtube-nocookie.com/embed/WVH9dM473xE?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=WVH9dM473xE&amp;rel=0&amp;modestbranding=1" title="Team MARVL introduction video, Maritime RobotX 2026" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" data-autoplay></iframe>
+      </div>
+      <p class="video-meta"><span>Team introduction video</span><span>Plays muted. Unmute in the player.</span><span><a href="https://youtu.be/WVH9dM473xE">Watch on YouTube</a></span></p>
       <figure>
         <img src="assets/img/uav-pool-float.jpg" alt="A team member in a swimming pool beside the quadrotor floating upright on its foam." loading="lazy" width="1050" height="590" />
         <figcaption><b>Buoyancy test.</b> The aircraft has to float and be recoverable
-        after a ditching, so we put it in the pool and swam it back.</figcaption>
+        after a ditching. We tested this in the pool and recovered it by hand.</figcaption>
       </figure>
     </section>
 
     <section class="section" id="structure">
       <h2>How the team is organised</h2>
-      <p>Work is split into four builds and three cross-cutting tracks. Everything meets
-      at the ground station, which is the only piece of software that talks to all three
-      vehicles and to RoboCommand.</p>
+      <p>Two leads run the project under the faculty advisor. The work is split into
+      eight groups, and most members are in more than one, because much of the work
+      crosses group boundaries: a detector has to feed the planner, and a controller
+      has to be checked in simulation first. All of the groups deliver into the ground
+      station, which is the one piece of software that talks to all three vehicles and
+      to RoboCommand.</p>
       <div class="cols">
         <div>
-          <h3>Vehicle builds</h3>
-          <p>One group per vehicle, each responsible for its own autopilot configuration,
-          safety systems and proof of readiness package.</p>
+          <h3>Simulation</h3>
+          <p>The ArduPilot software in the loop fleet, the HaLow link emulator, the
+          Marina Bay course model and the scripted validation run.</p>
         </div>
         <div>
-          <h3>Autonomy</h3>
-          <p>Mission orchestration, task state machines, the operator console and the
-          simulation stack that all of it is tested against.</p>
+          <h3>Computer vision</h3>
+          <p>Buoy, beacon, pipeline and docking bay detection, camera work on the ROV
+          and the aircraft, and the datasets behind them.</p>
         </div>
         <div>
-          <h3>Perception</h3>
-          <p>Buoy and pipeline detection, camera work on the ROV and the aircraft, and
-          the datasets behind them.</p>
+          <h3>Planning</h3>
+          <p>Mission orchestration, the task state machines, checkpointing and the
+          Task 4 interruption handling.</p>
         </div>
         <div>
-          <h3>Safety and compliance</h3>
-          <p>Kill switch chains, failsafe behaviour, RF declarations, pilot licensing and
-          the airworthiness case with CAAS.</p>
+          <h3>Control</h3>
+          <p>Autopilot configuration and tuning on all three vehicles, guided and
+          depth hold modes, and the failsafes.</p>
+        </div>
+        <div>
+          <h3>Electronics</h3>
+          <p>Power, the kill switch chain, the status lights, payload wiring and the
+          companion computers.</p>
+        </div>
+        <div>
+          <h3>Communication</h3>
+          <p>The WiFi HaLow link, the RoboCommand client, RF declarations and the
+          network on the course.</p>
+        </div>
+        <div>
+          <h3>Design documentation</h3>
+          <p>The technical design report, this website and the proof of readiness
+          packages.</p>
+        </div>
+        <div>
+          <h3>UAV</h3>
+          <p>The airframe build, flight testing, the delivery mechanism, pilot
+          licensing and the airworthiness case with CAAS.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="roster">
       <h2>Members</h2>
-      <div class="note note-todo">
-        <h3>Editor note, remove before submission</h3>
-        <p>Replace each card below with a member name, programme and year. The roster is
-        plain HTML in <code>team.html</code>; add or remove cards as the team changes.</p>
-      </div>
-      <div class="roster">
-        <div class="member">
+      <p>Twenty five students and one advisor. Each name is listed under every group
+      the member works in, so some names appear more than once.</p>
+      <div class="roster roster-heads">
+        <div class="member member-lead">
+          <p class="role">Faculty advisor</p>
+          <h4>Prof. Malika Meghjani</h4>
+          <p>Directs the entry, is the airworthiness contact, and leads the MARVL
+          lab.</p>
+        </div>
+        <div class="member member-lead">
           <p class="role">Team lead</p>
-          <h4>Add name</h4>
-          <p>Speaks for the team during runs, runs the schedule and the daily brief.</p>
+          <h4>A. Praveen Manicka</h4>
+          <p>Planning.</p>
         </div>
-        <div class="member">
-          <p class="role">Autonomy and ground station</p>
-          <h4>Add name</h4>
-          <p>Mission orchestration, state machines, RoboCommand link, operator console.</p>
+        <div class="member member-lead">
+          <p class="role">Team lead</p>
+          <h4>Siddhant Shrivastava</h4>
+          <p>Simulation, computer vision and communications.</p>
         </div>
-        <div class="member">
-          <p class="role">Perception</p>
-          <h4>Add name</h4>
-          <p>Buoy, pipeline and docking detection, camera calibration, onboard inference.</p>
+      </div>
+      <div class="crew-grid">
+        <div class="crew">
+          <h3>Simulation</h3>
+          <ul>
+            <li>Siddhant Shrivastava</li>
+            <li>My Vo</li>
+            <li>Weiyew Sim</li>
+          </ul>
         </div>
-        <div class="member">
-          <p class="role">Surface vehicle</p>
-          <h4>Add name</h4>
-          <p>BlueBoat integration, propulsion, kill switch chain, docking and firefighting payload.</p>
+        <div class="crew">
+          <h3>Computer vision</h3>
+          <ul>
+            <li>Siddhant Shrivastava</li>
+            <li>Minh Long Pham</li>
+            <li>N. Kandula</li>
+            <li>Jiawei Xu</li>
+            <li>Gregory Wong</li>
+            <li>Kunal Kumar Senthilkumar</li>
+            <li>Weiyew Sim</li>
+            <li>Christopher Quah</li>
+          </ul>
         </div>
-        <div class="member">
-          <p class="role">Underwater vehicle</p>
-          <h4>Add name</h4>
-          <p>BlueROV2 integration, depth control, magnetic probe, pipeline survey.</p>
+        <div class="crew">
+          <h3>Planning</h3>
+          <ul>
+            <li>A. Praveen Manicka</li>
+            <li>N. Kandula</li>
+            <li>Weiyew Sim</li>
+            <li>Minh Long Pham</li>
+          </ul>
         </div>
-        <div class="member">
-          <p class="role">Aerial vehicle</p>
-          <h4>Add name</h4>
-          <p>Airframe build, flight testing, delivery mechanism, pilot liaison.</p>
+        <div class="crew">
+          <h3>Control</h3>
+          <ul>
+            <li>Junjie Hoo</li>
+            <li>Divyesh Saraf</li>
+            <li>N. Kandula</li>
+            <li>Gregory Wong</li>
+            <li>Kunal Kumar Senthilkumar</li>
+          </ul>
         </div>
-        <div class="member">
-          <p class="role">Safety pilot</p>
-          <h4>Add name</h4>
-          <p>Licensed UAV pilot, manual takeover, airworthiness and CAAS paperwork.</p>
+        <div class="crew">
+          <h3>Electronics</h3>
+          <ul>
+            <li>Marcel Prasetyo</li>
+            <li>Xinyang Goh</li>
+            <li>Divyesh Saraf</li>
+            <li>Hongqing Zhao</li>
+          </ul>
         </div>
-        <div class="member">
-          <p class="role">Communications and compliance</p>
-          <h4>Add name</h4>
-          <p>RF submissions, network setup on the course, protocol conformance.</p>
+        <div class="crew">
+          <h3>Communication</h3>
+          <ul>
+            <li>Siddhant Shrivastava</li>
+            <li>My Vo</li>
+            <li>Jiawei Xu</li>
+            <li>Gregory Wong</li>
+            <li>N. Kandula</li>
+          </ul>
+        </div>
+        <div class="crew">
+          <h3>Design documentation</h3>
+          <ul>
+            <li>My Vo</li>
+            <li>N. Kandula</li>
+            <li>Kunal Kumar Senthilkumar</li>
+          </ul>
+        </div>
+        <div class="crew">
+          <h3>UAV</h3>
+          <ul>
+            <li>Dylan Soh</li>
+            <li>Mufaddal Murtuzatopiwala</li>
+            <li>Suryanarayanan Sandhanam</li>
+            <li>Marc Choo</li>
+            <li>Jacelyn Lee</li>
+            <li>Philip Yeo</li>
+          </ul>
+        </div>
+        <div class="crew">
+          <h3>Members</h3>
+          <p class="crew-note">Not yet assigned to a group.</p>
+          <ul>
+            <li>Lucas Pang</li>
+            <li>Justen Ong</li>
+            <li>Joey Teoh</li>
+            <li>Anson Poh Chin Siang</li>
+          </ul>
         </div>
       </div>
       <p style="margin-top:1.5rem">Faculty advisor and lab: <a href="https://www.malikameghjani.com/">MARVL,
@@ -173,20 +264,19 @@ them.</p>
 
     <section class="section" id="sponsors">
       <h2>Sponsors and support</h2>
-      <p>Three organisations carry this entry. Logos below are placeholders until the
-      official files are dropped in.</p>
+      <p>Three organisations support this entry. The logos below are placeholders until
+      the official files are added.</p>
       <div class="sponsors">
         <div class="sponsor">
           <div class="mark"><img src="assets/img/logo-sutd.svg" alt="Singapore University of Technology and Design" /></div>
           <h3>Singapore University of Technology and Design</h3>
-          <p>Host university. Workshop and pool access, field time, shipping and the
-          staff support behind the safety case.</p>
+          <p>Host university. Workshop and pool access, field time, shipping and staff
+          support for the safety documentation.</p>
         </div>
         <div class="sponsor">
           <div class="mark"><img src="assets/img/logo-marvl.svg" alt="MARVL, Multi-Agent Robotics Vision and Learning Lab" /></div>
           <h3>MARVL Lab</h3>
-          <p>Host lab. Vehicles, test equipment, and the marine robotics experience the
-          team builds on.</p>
+          <p>Host lab. Vehicles, test equipment and marine robotics experience.</p>
         </div>
         <div class="sponsor">
           <div class="mark"><img src="assets/img/logo-blue-robotics.svg" alt="Blue Robotics" /></div>
@@ -199,8 +289,24 @@ them.</p>
         <h3>Supporting the team</h3>
         <p>We are looking for support in three areas for the 2026 season: field time and
         boat cover in Singapore waters, components for the delivery mechanism, and travel
-        for the event week in November. Write to us at the address below.</p>
+        for the event week in November. Contact us at the address below.</p>
       </div>
+    </section>
+
+    <section class="section" id="acknowledgements">
+      <h2>Acknowledgements</h2>
+      <p>In addition to the three sponsors, the following people and groups have
+      supported the entry this season.</p>
+      <ul class="linklist ack-list">
+        <li><b>Prof. Foong Shaohui, MRS Lab, SUTD</b><span>For his support of the team
+        this season.</span></li>
+        <li><b>SOAR, the SUTD Organisation of Autonomous Robotics</b><span>The SUTD student
+        robotics club, for supporting the entry.</span></li>
+        <li><b>UWU, the UnderWater Unit</b><span>The SOAR student team that competes in the
+        Singapore AUV Challenge, for its part in the surface vehicle testing.</span></li>
+        <li><b>RoboNation</b><span>For publishing the RoboCommand schema and the rc-test
+        server used to check the communications submission.</span></li>
+      </ul>
     </section>
 
     <section class="section" id="contact">
@@ -214,9 +320,8 @@ them.</p>
       </ul>
       <div class="note note-todo">
         <h3>Editor note, remove before submission</h3>
-        <p>Confirm the contact address above. It is the one place on the site where a
-        judge, a sponsor or another team is expected to reach the team, so it has to be a
-        mailbox somebody reads.</p>
+        <p>Confirm the contact address above. It is the only address on the site, so it
+        has to be a mailbox that somebody reads.</p>
       </div>
     </section>
   </div>
@@ -229,7 +334,7 @@ them.</p>
       <h2>MARVL, Singapore University of Technology and Design</h2>
       <p>Multi-Agent Robotics Vision and Learning Lab. We are entering the 2026
       Maritime RobotX Challenge with a surface vessel, an underwater vehicle and
-      a quadrotor, run from one operator console.</p>
+      a quadrotor.</p>
       <ul>
         <li><a href="team.html#contact">Contact the team</a></li>
         <li><a href="https://github.com/MARVL-Research-Lab/robotx2026">This site on GitHub</a></li>
@@ -261,7 +366,7 @@ them.</p>
   </div>
   <div class="wrap">
     <p class="fine">Competition: 8 to 14 November 2026, Promontory at Marina Bay, Singapore.
-    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 21 September 2026.</p>
+    Run by <a href="https://robotx.org">RoboNation</a>. Last updated 29 September 2026.</p>
   </div>
 </footer>
 <script src="assets/js/site.js"></script>
