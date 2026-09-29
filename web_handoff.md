@@ -2,7 +2,11 @@
 
 State as of 29 September 2026. The site is live at
 <https://marvl-research-lab.github.io/robotx2026/>, served by GitHub Pages from `main`
-at the repository root.
+at the repository root. It is to move to <https://robotx.marvl.ai/>: the sitemap, robots
+file and README already name that address, and the README has the three steps (DNS
+record, Pages setting, verified domain). Until the professor's side of that is done the
+github.io address is the only one that resolves, and it keeps working as a redirect
+afterwards.
 
 **The design documentation deadline is 23 September 2026.** Everything below that is
 marked "open" is content the team has to supply, not engineering work.

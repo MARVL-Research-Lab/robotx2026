@@ -5,7 +5,31 @@ Singapore University of Technology and Design, for the 2026 Maritime RobotX Chal
 It is the submission for handbook section 2.2, and it is a plain static site: no build
 step, no framework, no dependencies to install.
 
-Live at <https://marvl-research-lab.github.io/robotx2026/>.
+Live at <https://robotx.marvl.ai/>, with
+<https://marvl-research-lab.github.io/robotx2026/> as the GitHub Pages address that
+redirects there once the custom domain is set.
+
+## Custom domain
+
+The site is served by GitHub Pages from `main`. To put it on `robotx.marvl.ai`:
+
+1. In the DNS for marvl.ai, add `robotx.marvl.ai. CNAME marvl-research-lab.github.io.`
+   If the zone is on Cloudflare, leave the record unproxied until the certificate is
+   issued.
+2. In the repository settings under Pages, enter `robotx.marvl.ai` as the custom domain
+   and save. GitHub commits a `CNAME` file to the root of `main`; keep it, because
+   removing it drops the domain on the next deploy. Once the DNS check passes, tick
+   "Enforce HTTPS".
+3. In the organisation settings under Pages, add `robotx.marvl.ai` as a verified domain
+   so nobody else can claim it.
+
+Do not add the `CNAME` file by hand before the DNS record exists. Pages starts
+redirecting the github.io address to the custom domain as soon as the file is present,
+and until the record resolves that redirect leads nowhere. After the switch the github.io
+address keeps working as a redirect for as long as the custom domain stays configured.
+
+Every link and asset path on the site is relative, so nothing else changes. The sitemap
+and robots file already carry the new address.
 
 ## Layout
 
