@@ -123,7 +123,7 @@ eight frames as data URIs. Safari ignores SVG favicons, so every page also links
 After changing the icon, re-render both PNGs and bump the `?v=` query on the SVG link
 in every page so cached copies are refreshed.
 
-The team introduction video is a YouTube embed (`WVH9dM473xE`) on `index.html` and
+The team introduction video is a YouTube embed (`UOy6zErhNPo`) on `index.html` and
 `team.html`. It starts muted and loops; the reduced motion guard in `assets/js/site.js`
 turns the autoplay off for visitors who ask for less motion.
 

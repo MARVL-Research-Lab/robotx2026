@@ -105,7 +105,7 @@ has to be deleted once the content is in.
 - Hero video is now real field footage (`assets/video/hero-field-loop.mp4`, recipe in
   `README.md`), as the advisor asked, after the design of <https://www.marvl.ai/robotx>.
   The simulator clip `hero-loop.mp4` is still in the repository and unused.
-- Team introduction video <https://youtu.be/WVH9dM473xE> embedded on `index.html` and
+- Team introduction video <https://youtu.be/UOy6zErhNPo> embedded on `index.html` and
   `team.html`, muted autoplay, looping.
 - Roster filled in from the list of 29 September: advisor, two leads, eight groups and
   four members not yet assigned. Spelling to confirm: the lead was given as
