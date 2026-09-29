@@ -200,4 +200,32 @@
       frame.src = frame.src.replace("autoplay=1", "autoplay=0");
     });
   }
+
+  // ----------------------------------------------------------- favicon --
+  // The icon is an SVG with SMIL animation, which Firefox plays as it is.
+  // Chromium based browsers draw favicons once, so for them the same file is
+  // fetched, its animations stripped, and eight frames set as data URIs.
+  var icon = document.querySelector('link[rel="icon"]');
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (icon && !reduced && window.fetch && !/Firefox/.test(navigator.userAgent)) {
+    fetch(icon.getAttribute("href")).then(function (r) { return r.text(); }).then(function (svg) {
+      if (svg.indexOf('id="wave"') < 0) return;
+      var base = svg.replace(/<animate[\s\S]*?\/>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+      var steps = 8, frames = [];
+      for (var i = 0; i < steps; i++) {
+        var bob = Math.sin(i / steps * 2 * Math.PI);
+        var f = base
+          .replace('id="wave"', 'id="wave" transform="translate(' + (-16 * i / steps).toFixed(1) + ' 0)"')
+          .replace('id="quad"', 'id="quad" transform="translate(0 ' + (-bob).toFixed(2) + ')"')
+          .replace('id="light"', 'id="light" opacity="' + (i < steps / 2 ? 1 : 0.15) + '"')
+          .replace('id="lamp"', 'id="lamp" opacity="' + (0.25 + 0.45 * (1 - Math.cos(i / steps * 2 * Math.PI)) / 2).toFixed(2) + '"');
+        frames.push("data:image/svg+xml," + encodeURIComponent(f));
+      }
+      var n = 0;
+      setInterval(function () {
+        n = (n + 1) % steps;
+        icon.setAttribute("href", frames[n]);
+      }, 250);
+    }).catch(function () {});
+  }
 })();

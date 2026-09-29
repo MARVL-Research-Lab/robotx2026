@@ -30,6 +30,7 @@ def main() -> int:
                     problems.append(f"{page.name}: missing anchor {raw}")
                 continue
             target, fragment = urldefrag(raw)
+            target = target.split("?", 1)[0]  # cache-busting query, as on the favicon
             path = (ROOT / target).resolve()
             if target.endswith("/"):
                 path = path / "index.html"
